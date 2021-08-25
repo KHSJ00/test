@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="72a65383-ff92-4d24-a157-1ab75c8184bb" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/accounts/templates/registration/accounts_base.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/post/migrations/0003_auto_20210530_1935.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/post/migrations/0004_comment_author.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/post/templates/post/post_base.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/post/templates/post/post_detail_staff.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/post/templates/post/post_list_staff.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/post/templates/post/post_must_login.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/post/templates/post/post_not_allowed.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/runtime.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/smoking/static/smoking/images/banner1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/smoking/static/smoking/images/banner3.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/smoking/static/smoking/images/banner4.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/smoking/static/smoking/images/basebanner.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/smoking/static/smoking/images/new_banner1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/smoking/static/smoking/images/new_banner2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/smoking/static/smoking/images/new_banner3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/smoking/static/smoking/images/new_banner4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/smoking/static/smoking/images/new_banner5.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/smoking/static/smoking/images/new_banner6.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/smoking/static/smoking/images/new_banner7.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/smoking/static/smoking/images/new_banner8.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/smoking/static/smoking/images/new_banner9.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/smoking/static/smoking/images/seoul_map.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/smoking/static/smoking/images/로고.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/smoking/templates/smoking/complaint_crackdown.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/smoking/templates/smoking/complaint_crackdown_2016.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/smoking/templates/smoking/complaint_crackdown_2017.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/smoking/templates/smoking/complaint_crackdown_2018.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/smoking/templates/smoking/complaint_crackdown_2019.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/smoking/templates/smoking/complaint_crackdown_2020.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/smoking/templates/smoking/cp_cd_2016.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/smoking/templates/smoking/cp_cd_2017.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/smoking/templates/smoking/cp_cd_2018.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/smoking/templates/smoking/cp_cd_2019.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/smoking/templates/smoking/cp_cd_2020.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/smoking/templates/smoking/cpcd_base.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/smoking/templates/smoking/dobong_map.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/smoking/templates/smoking/dongdaemun_map.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/smoking/templates/smoking/dongjak_map.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/smoking/templates/smoking/eunpyeong_map.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/smoking/templates/smoking/gangbuk_map.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/smoking/templates/smoking/gangdong_map.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/smoking/templates/smoking/gangnam_map.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/smoking/templates/smoking/gangseo_map.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/smoking/templates/smoking/geumcheon_map.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/smoking/templates/smoking/graph_age.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/smoking/templates/smoking/graph_base.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/smoking/templates/smoking/graph_borough.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/smoking/templates/smoking/graph_cigaretteprice.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/smoking/templates/smoking/graph_gender.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/smoking/templates/smoking/graph_gender_age_amount.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/smoking/templates/smoking/guro_map.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/smoking/templates/smoking/gwanak_map.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/smoking/templates/smoking/gwangjin_map.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/smoking/templates/smoking/jongro_map.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/smoking/templates/smoking/jung_map.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/smoking/templates/smoking/jungrang_map.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/smoking/templates/smoking/location_base.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/smoking/templates/smoking/mapo_map.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/smoking/templates/smoking/nowon_map.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/smoking/templates/smoking/seocho_map.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/smoking/templates/smoking/seodaemun_map.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/smoking/templates/smoking/seongbuk_map.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/smoking/templates/smoking/seongdong_map.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/smoking/templates/smoking/songpa_map.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/smoking/templates/smoking/test.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/smoking/templates/smoking/yangcheon_map.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/smoking/templates/smoking/yeongdeungpo_map.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/smoking/templates/smoking/yongsan_map.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/cd.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/cd.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/templates/registration/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/templates/registration/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/templates/registration/logout.html" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/templates/registration/logout.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/templates/registration/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/templates/registration/register.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/templates/registration/register_done.html" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/templates/registration/register_done.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/post/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/post/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/post/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/post/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/post/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/post/migrations/0002_comment.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/post/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/post/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/post/templates/post/post_confirm_delete.html" beforeDir="false" afterPath="$PROJECT_DIR$/post/templates/post/post_confirm_delete.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/post/templates/post/post_delete.html" beforeDir="false" afterPath="$PROJECT_DIR$/post/templates/post/post_delete.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/post/templates/post/post_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/post/templates/post/post_detail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/post/templates/post/post_edit.html" beforeDir="false" afterPath="$PROJECT_DIR$/post/templates/post/post_edit.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/post/templates/post/post_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/post/templates/post/post_list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/post/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/post/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/post/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/post/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/smoking/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/smoking/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/smoking/templates/smoking/boroughlist.html" beforeDir="false" afterPath="$PROJECT_DIR$/smoking/templates/smoking/boroughlist.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/smoking/templates/smoking/cp_cd.html" beforeDir="false" afterPath="$PROJECT_DIR$/smoking/templates/smoking/cp_cd.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/smoking/templates/smoking/direction.html" beforeDir="false" afterPath="$PROJECT_DIR$/smoking/templates/smoking/direction.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/smoking/templates/smoking/graph.html" beforeDir="false" afterPath="$PROJECT_DIR$/smoking/templates/smoking/graph.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/smoking/templates/smoking/location.html" beforeDir="false" afterPath="$PROJECT_DIR$/smoking/templates/smoking/location.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/smoking/templates/smoking/map.html" beforeDir="false" afterPath="$PROJECT_DIR$/smoking/templates/smoking/map.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/smoking/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/smoking/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/smoking/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/smoking/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DjangoConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)">
+    <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1x8JRILSsdGhVoMJEuregiN02w8" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="TERMINAL_CUSTOM_COMMANDS_GOT_IT" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+  </component>
+  <component name="RunManager">
+    <configuration name="cd" type="Python.DjangoServer" factoryName="Django server">
+      <module name="cd" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <option name="port" value="8000" />
+      <option name="host" value="" />
+      <option name="additionalOptions" value="" />
+      <option name="browserUrl" value="" />
+      <option name="runTestServer" value="false" />
+      <option name="runNoReload" value="false" />
+      <option name="useCustomRunCommand" value="false" />
+      <option name="customRunCommand" value="" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="72a65383-ff92-4d24-a157-1ab75c8184bb" name="Default Changelist" comment="" />
+      <created>1629730771016</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1629730771016</updated>
+      <workItem from="1629730772195" duration="14499000" />
+      <workItem from="1629793881383" duration="433000" />
+      <workItem from="1629862855643" duration="371000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="142" y="0" key="SettingsEditor" timestamp="1629730804077">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="142" y="0" key="SettingsEditor/0.0.1280.680@0.0.1280.680" timestamp="1629730804077" />
+  </component>
+</project>

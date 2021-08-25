@@ -1,0 +1,148 @@
+<div id="map" style="width:100%;height:500px;"></div>
+
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=541b6d15b257b828a3da0c50a02d541e"></script>
+
+<script>
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+    mapOption = {
+        center: new kakao.maps.LatLng(37.517992740481354, 126.91623783861414), // 지도의 중심좌표
+        level: 3 // 지도의 확대 레벨
+    };
+
+var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+
+// HTML5의 geolocation으로 사용할 수 있는지 확인합니다
+if (navigator.geolocation) {
+    // GeoLocation을 이용해서 접속 위치를 얻어옵니다
+    navigator.geolocation.getCurrentPosition(function(position) {
+
+        var lat = position.coords.latitude, // 위도
+            lon = position.coords.longitude; // 경도
+
+        var locPosition = new kakao.maps.LatLng(lat, lon), // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
+            message = '<div style="padding:5px;">여기에 계신가요~</div>'; // 인포윈도우에 표시될 내용입니다
+
+        // 마커와 인포윈도우를 표시합니다
+        displayMarker(locPosition, message);
+     });
+} else { // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치와 인포윈도우 내용을 설정합니다
+    var locPosition = new kakao.maps.LatLng(33.450701, 126.570667),
+        message = 'geolocation을 사용할수 없습니다'
+
+    displayMarker(locPosition, message);
+}
+
+// 지도에 마커와 인포윈도우를 표시하는 함수입니다
+function displayMarker(locPosition, message) {
+    // 마커를 생성합니다
+    var marker = new kakao.maps.Marker({
+        map: map,
+        position: locPosition
+    });
+    var iwPosition = new kakao.maps.LatLng(37.517992740481354, 126.91623783861414); //인포윈도우 표시 위치입니다
+
+    var infowindow = new kakao.maps.InfoWindow({
+    position : iwPosition,
+    });
+
+    // 인포윈도우를 마커위에 표시합니다
+    infowindow.open(map, marker);
+
+    // 지도 중심좌표를 접속위치로 변경합니다
+    map.setCenter(locPosition);
+}
+
+
+// 광진구
+var positions = [
+    {
+        content: '<div style="padding:15px;width:350px;text-align: center;">서울특별시 광진구 능동로 11길 지하 210</div>', // 흡연구역 1 장소 이름
+        latlng: new kakao.maps.LatLng(37.5268349,127.0092887), // 흡연구역 1 장소 좌표
+    },
+    {
+        content: '<div style="padding:15px;width:350px;text-align: center;">서울특별시 광진구 워커힐로 177</div>', // 흡연구역 2 장소 이름
+        latlng: new kakao.maps.LatLng(37.5557741,127.1087231) // 흡연구역 2 장소 좌표
+    },
+    {
+        content: '<div style="padding:15px;width:350px;text-align: center;">서울특별시 광진구 면목로 160, 2층</div>', // 흡연구역 3 장소 이름
+        latlng: new kakao.maps.LatLng(37.5674002,127.0800965) // 흡연구역 3 장소 좌표
+    },
+    {
+        content: '<div style="padding:15px;width:350px;text-align: center;">서울특별시 광진구 아차산로 453</div>', // 흡연구역 4 장소 이름
+        latlng: new kakao.maps.LatLng(37.5393304,127.0901889) // 흡연구역 4 장소 좌표
+    },
+    {
+        content: '<div style="padding:15px;width:350px;text-align: center;">서울특별시 광진구 능동로 120</div>', // 흡연구역 5 장소 이름
+        latlng: new kakao.maps.LatLng(37.5419717,127.0745398) // 흡연구역 5 장소 좌표
+    },
+    {
+        content: '<div style="padding:15px;width:350px;text-align: center;">서울특별시 광진구 능동로 209<br/><a href="https://map.kakao.com/link/to/서울특별시 광진구 면목로 160,37.5674002,127.0800965">길찾기</a></div>', // 흡연구역 6 장소 이름
+        latlng: new kakao.maps.LatLng(37.5517986,127.0714444) // 흡연구역 6 장소 좌표
+    },
+    {
+        content: '<div style="padding:15px;width:350px;text-align: center;">서울특별시 광진구 긴고랑로 131</div>', // 흡연구역 7 장소 이름
+        latlng: new kakao.maps.LatLng(37.5590531,127.0872231) // 흡연구역 7 장소 좌표
+    },
+    {
+        content: '<div style="padding:15px;width:350px;text-align: center;">서울특별시 광진구 아차산로 567</div>', // 흡연구역 8 장소 이름
+        latlng: new kakao.maps.LatLng(37.5444174,127.1011142) // 흡연구역 8 장소 좌표
+    },
+    {
+        content: '<div style="padding:15px;width:350px;text-align: center;">서울특별시 광진구 광나루로 480</div>', // 흡연구역 9 장소 이름
+        latlng: new kakao.maps.LatLng(37.5444039,127.0746107) // 흡연구역 9 장소 좌표
+    },
+    {
+        content: '<div style="padding:15px;width:350px;text-align: center;">서울특별시 광진구 자양로 167</div>', // 흡연구역 10 장소 이름
+        latlng: new kakao.maps.LatLng(37.5428825,127.0815694) // 흡연구역 10 장소 좌표
+    },
+    {
+        content: '<div style="padding:15px;width:350px;text-align: center;">서울특별시 광진구 광나루로 36길 56</div>', // 흡연구역 11 장소 이름
+        latlng: new kakao.maps.LatLng(37.5424529,127.0834611) // 흡연구역 11 장소 좌표
+    },
+    {
+        content: '<div style="padding:15px;width:350px;text-align: center;">서울특별시 광진구 자양로 117</div>', // 흡연구역 12 장소 이름
+        latlng: new kakao.maps.LatLng(37.5383742,127.080019) // 흡연구역 12 장소 좌표
+    },
+    {
+        content: '<div style="padding:15px;width:350px;text-align: center;">서울특별시 광진구 강변역로 2</div>', // 흡연구역 13 장소 이름
+        latlng: new kakao.maps.LatLng(37.5371439,127.0886579) // 흡연구역 13 장소 좌표
+    },
+];
+
+// 마커 이미지의 이미지 주소입니다
+var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+
+for (var i = 0; i < positions.length; i ++) {
+
+    // 마커 이미지의 이미지 크기 입니다
+    var imageSize = new kakao.maps.Size(25, 40);
+
+    // 마커 이미지를 생성합니다
+    var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+
+    // 마커를 생성합니다
+    var marker = new kakao.maps.Marker({
+        map: map, // 마커를 표시할 지도
+        position: positions[i].latlng, // 마커의 위치
+        image : markerImage // 마커 이미지
+    });
+
+    // 마커에 표시할 인포윈도우를 생성합니다
+    var infowindow = new kakao.maps.InfoWindow({
+        content: positions[i].content, // 인포윈도우에 표시할 내용
+        removable : true
+    });
+
+    // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
+    // 이벤트 리스너로는 클로저를 만들어 등록합니다
+    // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
+    kakao.maps.event.addListener(marker, 'click', makeOverListener(map, marker, infowindow));
+}
+
+// 인포윈도우를 표시하는 클로저를 만드는 함수입니다
+function makeOverListener(map, marker, infowindow) {
+    return function() {
+        infowindow.open(map, marker);
+    };
+}
+</script>

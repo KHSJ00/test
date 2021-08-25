@@ -1,0 +1,249 @@
+{% extends 'smoking/location_base.html' %}
+{% block title %}- 위치/유형 페이지{% endblock %}
+
+{% block content %}
+
+<style>
+    .dropdown-menu {
+        max-height: 400px;
+        overflow: hidden;
+        overflow-y: auto;
+    }
+
+    div#map {margin:0px auto}
+
+    .box {
+        width: 100%;
+        text-align: center;
+        border: 3px solid #708090;
+        border-radius: 10px;
+        padding: 2%;
+        background: #FDFFFF;
+    }
+</style>
+
+<div class="container">
+    <div class = "dropdown">
+        <button class = "btn btn-secondary dropdown-toggle" data-toggle="dropdown">관악구</button>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" href="{% url 'smoking:gangnam_map' %}">강남구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:gangdong_map' %}">강동구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:gangbuk_map' %}">강북구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:gangseo_map' %}">강서구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:gwanak_map' %}">관악구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:gwangjin_map' %}">광진구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:guro_map' %}">구로구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:geumcheon_map' %}">금천구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:nowon_map' %}">노원구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:dobong_map' %}">도봉구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:dongdaemun_map' %}">동대문구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:dongjak_map' %}">동작구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:mapo_map' %}">마포구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:seodaemun_map' %}">서대문구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:seocho_map' %}">서초구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:seongdong_map' %}">성동구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:seongbuk_map' %}">성북구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:songpa_map' %}">송파구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:yangcheon_map' %}">양천구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:yeongdeungpo_map' %}">영등포구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:yongsan_map' %}">용산구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:eunpyeong_map' %}">은평구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:jongro_map' %}">종로구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:jung_map' %}">중구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:jungrang_map' %}">중랑구</a>
+        </div>
+    </div>
+</div>
+
+<div class="box" align="center">
+    <br/>
+    <h4><strong>관악구 흡연구역 상세 지도</strong></h4>
+    <sub><strong style="color:blue">정보공개포털</strong>과 <strong style="color:blue">공공데이터포털</strong>의 데이터를 기반으로 만들어졌습니다.</sub><br/><br/>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=541b6d15b257b828a3da0c50a02d541e"></script>
+
+<div id="map" style="width:100%;height:600px;">
+</div>
+<br/><br/>
+
+<script>
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+
+    mapOption = {
+        center: new kakao.maps.LatLng(37.4781285, 126.9493137), // 지도의 중심좌표
+        level: 6 // 지도의 확대 레벨
+    };
+
+var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+
+var positions = [
+    {
+        title: '봉천로 209 롯데백화점관악점', // 1
+        content: '<div style="padding:15px;width:350px;text-align: center;">봉천로 209 롯데백화점관악점<br>완전폐쇄형</div>',
+        latlng: new kakao.maps.LatLng(37.4906293538444, 126.92494614753024), // 1 좌표
+        category : '완전폐쇄형'
+    },
+    {
+        title: '관악로 145 관악구청 2층 테라스', // 2
+        content: '<div style="padding:15px;width:350px;text-align: center;">관악로 145 관악구청 2층 테라스<br>완전폐쇄형</div>',
+        latlng: new kakao.maps.LatLng(37.478418813638996, 126.95151546790909), // 2 좌표
+        category : '완전폐쇄형'
+    },
+    {
+        title: '관악로 145 관악구청 9층 옥상', // 3
+        content: '<div style="padding:15px;width:350px;text-align: center;">관악로 145 관악구청 9층 옥상<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.478400860611664, 126.95167941223593), // 3 좌표
+        category : '부분개방형'
+    },
+    {
+        title: '관악로 145 관악구의회 6층 옥상', // 4
+        content: '<div style="padding:15px;width:350px;text-align: center;">관악로 145 관악구의회 6층 옥상<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.47804275450809, 126.95178987291625), // 4 좌표
+        category : '부분개방형'
+    },
+    {
+        title: '관악로 145 관악구 보건소 6층 옥상', // 5
+        content: '<div style="padding:15px;width:350px;text-align: center;">관악로 145 관악구 보건소 6층 옥상<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.47852678455268, 126.95115078854201), // 5 좌표
+        category : '부분개방형'
+    },
+    {
+        title: '신림로3길 35 관악문화관도서관 2층 제1자료실', // 6
+        content: '<div style="padding:15px;width:350px;text-align: center;">신림로3길 35 관악문화관도서관 2층 제1자료실<br>완전폐쇄형</div>',
+        latlng: new kakao.maps.LatLng(37.46786056484417, 126.94486698824892), // 6 좌표
+        category : '완전폐쇄형'
+    },
+    {
+        title: '관악로 242 강남고려병원', // 7
+        content: '<div style="padding:15px;width:350px;text-align: center;">관악로 242 강남고려병원<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.48569647879284, 126.95671472204191), // 7 좌표
+        category : '부분개방형'
+    },
+
+];
+
+// 마커 이미지의 이미지 주소입니다
+var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+
+for (var i = 0; i < positions.length; i ++) {
+
+    // 마커 이미지의 이미지 크기 입니다
+    var imageSize = new kakao.maps.Size(24, 35);
+
+    // 마커 이미지를 생성합니다
+    var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+
+    // 마커를 생성합니다
+    var marker = new kakao.maps.Marker({
+        map: map, // 마커를 표시할 지도
+        position: positions[i].latlng, // 마커를 표시할 위치
+        title : positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+        image : markerImage // 마커 이미지
+    });
+
+    // 마커에 표시할 인포윈도우를 생성합니다
+    var infowindow = new kakao.maps.InfoWindow({
+        content: positions[i].content // 인포윈도우에 표시할 내용
+    });
+
+    // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
+    // 이벤트 리스너로는 클로저를 만들어 등록합니다
+    // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
+    kakao.maps.event.addListener(marker, 'click', makeOverListener(map, marker, infowindow));
+    kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
+}
+
+// 인포윈도우를 표시하는 클로저를 만드는 함수입니다
+function makeOverListener(map, marker, infowindow) {
+    return function() {
+        infowindow.open(map, marker);
+    };
+}
+
+// 인포윈도우를 닫는 클로저를 만드는 함수입니다
+function makeOutListener(infowindow) {
+    return function() {
+        infowindow.close();
+    };
+}
+
+</script>
+</div>
+
+<br/><br/>
+<div class="box2" align="center" style="width:100%; height:200px; overflow:auto">
+
+        <table class="table">
+            <thead class="thead" style="color:#4374D9">
+                <tr>
+                    <th scope="col">자치구</th>
+                    <th scope="col">흡연구역 유형</th>
+                    <th scope="col">주소</th>
+                </tr>
+            </thead>
+
+            <tbody>
+            <tr>
+                <td>관악구</td>
+                <td>완전폐쇄형</td>
+                <td>서울특별시 관악구 봉천로 209 롯데백화점관악점</td>
+            </tr>
+            <tr>
+                <td>관악구</td>
+                <td>완전폐쇄형</td>
+                <td>서울특별시 관악구 관악로 145 관악구청 2층 테라스</td>
+            </tr>
+            <tr>
+                <td>관악구</td>
+                <td>부분개방형</td>
+                <td>서울특별시 관악구 관악로 145 관악구청 9층 옥상</td>
+            </tr>
+            <tr>
+                <td>관악구</td>
+                <td>부분개방형</td>
+                <td>서울특별시 관악구 봉천동 관악로 145 관악구의회 6층 옥상</td>
+            </tr>
+               <tr>
+                <td>관악구</td>
+                <td>부분개방형</td>
+                <td>서울특별시 관악구 봉천동 관악로 145 관악구 보건소 6층 옥상</td>
+            </tr>
+{#            5#}
+            <tr>
+                <td>관악구</td>
+                <td>완전폐쇄형</td>
+                <td>서울 관악구 신림로3길 35 관악문화관도서관 2층 제1자료실</td>
+            </tr>
+               <tr>
+                <td>관악구</td>
+                <td>부분개방형</td>
+                <td>서울 관악구 관악로 242 강남고려병원</td>
+            </tr>
+
+            </tbody>
+        </table>
+</div>
+{% endblock %}

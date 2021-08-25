@@ -1,0 +1,173 @@
+{% extends 'smoking/graph_base.html' %}
+{% block content %}
+
+<style>
+
+</style>
+
+<div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+  <div class="btn-group" role="group">
+    <button id="btnGroupDrop1"  style="background-color:yellowgreen;color:white" type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      흡연율
+    </button>
+    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+      <a class="dropdown-item" onclick="location.href='/graph_age'">연령별</a>
+<!--      <a class="dropdown-item" onclick="location.href='/graph_gender'">성별</a>-->
+      <a class="dropdown-item" onclick="location.href='/graph_borough'">자치구별</a>
+    </div>
+  </div>
+
+  <div class="btn-group" role="group">
+    <button id="btnGroupDrop2" style="background-color:gray;color:white" type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      흡연량
+   </button>
+    <div class="dropdown-menu" aria-labelledby="btnGroupDrop2">
+      <a class="dropdown-item" onclick="location.href='/graph_gender_age_amount'">성별&연령별</a>
+    </div>
+  </div>
+
+  <div class="btn-group" role="group">
+    <button id="btnGroupDrop3" style="background-color:gray;color:white" type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      기타
+   </button>
+    <div class="dropdown-menu" aria-labelledby="btnGroupDrop3">
+      <a class="dropdown-item" onclick="location.href='/graph_cigaretteprice'">담배값 및 담배 판매량</a>
+    </div>
+  </div>
+</div>
+
+<br/><br/><br/><br/>
+{#2019 남성 흡연율#}
+<div id="container" style ="width:100%;">
+  <div id="container1" style="float:left;width:50%;">
+    <script src="https://code.highcharts.com/stock/highstock.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+      // chart1
+      Highcharts.chart('container1', {
+          chart: {
+              plotBackgroundColor: null,
+              plotBorderWidth: null,
+              plotShadow: false,
+              type: 'pie'
+          },
+          title: {
+              text: '2018 남성 흡연율'
+          },
+          subtitle: {
+            text: '모든 정보는 <a href="https://www.open.go.kr/com/main/mainView.do" style="color: blue">정보 공개 포털</a>의 자료를 기반으로 작성되었습니다.'
+        },
+          tooltip: {
+              pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+          },
+          accessibility: {
+              point: {
+                  valueSuffix: '%'
+              }
+          },
+          plotOptions: {
+              pie: {
+                  allowPointSelect: true,
+                  cursor: 'pointer',
+                  dataLabels: {
+                      enabled: true,
+                      format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                  }
+              }
+          },
+          series: [{
+              name: '연령-',
+              colorByPoint: true,
+              data: [{
+                  name: '19-29세',
+                  y: 34.9,
+                  sliced: false,
+                  selected: false
+              }, {
+                  name: '30-39세',
+                  y: 39.9
+              }, {
+                  name: '40-49세',
+                  y: 44.1
+              }, {
+                  name: '50-59세',
+                  y: 40.6
+              }, {
+                  name: '60-69세',
+                  y: 26.7
+              }, {
+                  name: '70세-',
+                  y: 14.7
+              }]
+          }]
+      });
+    </script>
+  </div>
+{#2019 여성 흡연율#}
+  <div id="container2" style="width:50%;">
+    <script src="https://code.highcharts.com/stock/highstock.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+      // chart2
+      Highcharts.chart('container2', {
+          chart: {
+              plotBackgroundColor: null,
+              plotBorderWidth: null,
+              plotShadow: false,
+              type: 'pie'
+          },
+          title: {
+              text: '2018 여성 흡연율'
+          },
+          subtitle: {
+            text: '모든 정보는 <a href="https://www.open.go.kr/com/main/mainView.do" style="color: blue">정보 공개 포털</a>의 자료를 기반으로 작성되었습니다.'
+        },
+          tooltip: {
+              pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+          },
+          accessibility: {
+              point: {
+                  valueSuffix: '%'
+              }
+          },
+          plotOptions: {
+              pie: {
+                  allowPointSelect: true,
+                  cursor: 'pointer',
+                  dataLabels: {
+                      enabled: true,
+                      format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                  }
+              }
+          },
+          series: [{
+              name: '연령-',
+              colorByPoint: true,
+              data: [{
+                  name: '19-29세',
+                  y: 10.9,
+                  sliced: false,
+                  selected: false
+              }, {
+                  name: '30-39세',
+                  y: 8.3
+              }, {
+                  name: '40-49세',
+                  y: 8.7
+              }, {
+                  name: '50-59세',
+                  y: 5
+              }, {
+                  name: '60-69세',
+                  y: 3.6
+              }, {
+                  name: '70세-',
+                  y: 1.1
+              }]
+          }]
+      });
+    </script>
+  </div>
+</div>
+
+{% endblock %}

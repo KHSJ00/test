@@ -1,0 +1,232 @@
+{% extends 'smoking/location_base.html' %}
+{% block title %}- 위치/유형 페이지{% endblock %}
+
+{% block content %}
+<style>
+    .dropdown-menu {
+    max-height: 400px;
+    overflow: hidden;
+    overflow-y: auto;
+}
+</style>
+<br/>
+
+<div class="container">
+    <div class = "dropdown">
+        <button class = "btn btn-secondary dropdown-toggle" data-toggle="dropdown">강북구</button>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" href="{% url 'smoking:gangnam_map' %}">강남구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:gangdong_map' %}">강동구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:gangbuk_map' %}">강북구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:gangseo_map' %}">강서구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:gwanak_map' %}">관악구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:gwangjin_map' %}">광진구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:guro_map' %}">구로구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:geumcheon_map' %}">금천구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:nowon_map' %}">노원구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:dobong_map' %}">도봉구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:dongdaemun_map' %}">동대문구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:dongjak_map' %}">동작구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:mapo_map' %}">마포구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:seodaemun_map' %}">서대문구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:seocho_map' %}">서초구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:seongdong_map' %}">성동구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:seongbuk_map' %}">성북구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:songpa_map' %}">송파구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:yangcheon_map' %}">양천구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:yeongdeungpo_map' %}">영등포구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:yongsan_map' %}">용산구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:eunpyeong_map' %}">은평구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:jongro_map' %}">종로구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:jung_map' %}">중구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:jungrang_map' %}">중랑구</a>
+        </div>
+    </div>
+</div>
+
+<div class="box" align="center">
+    <h4><strong>강북구 흡연구역 상세 지도</strong></h4><br/>
+
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=541b6d15b257b828a3da0c50a02d541e"></script>
+
+<div id="map" style="width:100%;height:600px;">
+</div>
+<br/><br/>
+
+<script>
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+    mapOption = {
+        center: new kakao.maps.LatLng(37.6397767, 127.0233297), // 지도의 중심좌표
+        level: 6 // 지도의 확대 레벨
+    };
+
+var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+
+var positions = [
+    {
+        title: '서울시 강북구 도봉로 242 한국전력', // 1
+        latlng: new kakao.maps.LatLng(37.6305845, 127.0248859), // 1 좌표
+        category : '부분개방형'
+    },
+    {
+        title: '서울시 강북구 삼각산로 089 강북구의회', // 2
+        latlng: new kakao.maps.LatLng(37.6406658, 127.014046), // 2 좌표
+        category : '부분개방형'
+    },
+    {
+        title: '서울시 강북구 오패산로 406 강북경찰서', // 3
+        latlng: new kakao.maps.LatLng(37.63715035, 127.0270295), // 3 좌표
+        category : '완전폐쇄형'
+    },
+    {
+        title: '서울시 강북구 한천로 913 서울북부도로사업소', // 4
+        latlng: new kakao.maps.LatLng(37.6336823, 127.0366454), // 4 좌표
+        category : '완전개방형'
+    },
+    {
+        title: '서울시 강북구 오현로 145 강북문화정보도서관', // 5
+        latlng: new kakao.maps.LatLng(37.6251151, 127.0360795), // 5 좌표
+        category : '부분개방형'
+    },
+    {
+        title: '서울시 강북구 덕릉로40길 74 강북전자공단', // 6
+        latlng: new kakao.maps.LatLng(37.63391411, 127.0334401), // 6 좌표
+        category : '부분개방형'
+    },
+    {
+        title: '서울시 강북구 도봉로 238 SK텔레콤', // 7
+        latlng: new kakao.maps.LatLng(37.6297137, 127.0251946), // 7 좌표
+        category : '부분개방형'
+    },
+    {
+        title: '서울시 강북구 솔샘로 223 삼미통산', // 8
+        latlng: new kakao.maps.LatLng(37.62027848, 127.0175725), // 8 좌표
+        category : '부분개방형'
+    },
+    {
+        title: '서울시 강북구 도봉로 62 롯데백화점', // 9
+        latlng: new kakao.maps.LatLng(37.61459249, 127.0305178), // 9 좌표
+        category : '부분개방형'
+    },
+    {
+        title: '서울시 강북구 한천로 1289 미즐 카페 엠', // 10
+        latlng: new kakao.maps.LatLng(37.64843303, 127.0145856), // 10 좌표
+        category : '완전폐쇄형'
+    },
+];
+
+// 마커 이미지의 이미지 주소입니다
+var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+
+for (var i = 0; i < positions.length; i ++) {
+
+    // 마커 이미지의 이미지 크기 입니다
+    var imageSize = new kakao.maps.Size(24, 35);
+
+    // 마커 이미지를 생성합니다
+    var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+
+    // 마커를 생성합니다
+    var marker = new kakao.maps.Marker({
+        map: map, // 마커를 표시할 지도
+        position: positions[i].latlng, // 마커를 표시할 위치
+        title : positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+        image : markerImage // 마커 이미지
+    });
+}
+</script>
+</div>
+<br/><br/>
+
+<div class="box2" align="center" style="width:100%; height:200px; overflow:auto">
+
+        <table class="table">
+            <thead class="thead" style="color:#4374D9">
+                <tr>
+                    <th scope="col">자치구</th>
+                    <th scope="col">흡연구역 유형</th>
+                    <th scope="col">주소</th>
+                </tr>
+            </thead>
+
+            <tbody>
+            <tr>
+                <td>강북구</td>
+                <td>부분개방형</td>
+                <td>서울시 강북구 도봉로 242 한국전력</td>
+            </tr>
+            <tr>
+                <td>강북구</td>
+                <td>부분개방형</td>
+                <td>서울시 강북구 삼각산로 089 강북구의회</td>
+            </tr>
+            <tr>
+                <td>강북구</td>
+                <td>완전폐쇄형</td>
+                <td>서울시 강북구 오패산로 406 강북경찰서</td>
+            </tr>
+            <tr>
+                <td>강북구</td>
+                <td>완전개방형</td>
+                <td>서울시 강북구 한천로 913 서울북부도로사업소</td>
+            </tr>
+            <tr>
+                <td>강북구</td>
+                <td>부분개방형</td>
+                <td>서울시 강북구 오현로 145 강북문화정보도서관</td>
+            </tr>
+{#            5#}
+            <tr>
+                <td>강북구</td>
+                <td>부분개방형</td>
+                <td>서울시 강북구 덕릉로40길 74 강북전자공단</td>
+            </tr>
+            <tr>
+                <td>강북구</td>
+                <td>부분개방형</td>
+                <td>서울시 강북구 도봉로 238 SK텔레콤</td>
+            </tr>
+            <tr>
+                <td>강북구</td>
+                <td>부분개방형</td>
+                <td>서울시 강북구 솔샘로 223 삼미통산</td>
+            </tr>
+            <tr>
+                <td>강북구</td>
+                <td>부분개방형</td>
+                <td>서울시 강북구 도봉로 62 롯데백화점</td>
+            </tr>
+            <tr>
+                <td>강북구</td>
+                <td>완전폐쇄형</td>
+                <td>서울시 강북구 한천로 1289 미즐 카페 엠</td>
+            </tr>
+            </tbody>
+        </table>
+
+</div>
+{% endblock %}

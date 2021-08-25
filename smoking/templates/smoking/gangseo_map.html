@@ -1,0 +1,496 @@
+{% extends 'smoking/location_base.html' %}
+{% block title %}- 위치/유형 페이지{% endblock %}
+
+{% block content %}
+
+<style>
+    .dropdown-menu {
+        max-height: 400px;
+        overflow: hidden;
+        overflow-y: auto;
+    }
+
+    div#map {margin:0px auto}
+
+    .box {
+        width: 100%;
+        text-align: center;
+        border: 3px solid #708090;
+        border-radius: 10px;
+        padding: 2%;
+        background: #FDFFFF;
+    }
+</style>
+
+<div class="container">
+    <div class = "dropdown">
+        <button class = "btn btn-secondary dropdown-toggle" data-toggle="dropdown">강서구</button>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" href="{% url 'smoking:gangnam_map' %}">강남구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:gangdong_map' %}">강동구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:gangbuk_map' %}">강북구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:gangseo_map' %}">강서구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:gwanak_map' %}">관악구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:gwangjin_map' %}">광진구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:guro_map' %}">구로구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:geumcheon_map' %}">금천구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:nowon_map' %}">노원구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:dobong_map' %}">도봉구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:dongdaemun_map' %}">동대문구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:dongjak_map' %}">동작구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:mapo_map' %}">마포구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:seodaemun_map' %}">서대문구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:seocho_map' %}">서초구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:seongdong_map' %}">성동구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:seongbuk_map' %}">성북구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:songpa_map' %}">송파구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:yangcheon_map' %}">양천구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:yeongdeungpo_map' %}">영등포구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:yongsan_map' %}">용산구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:eunpyeong_map' %}">은평구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:jongro_map' %}">종로구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:jung_map' %}">중구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:jungrang_map' %}">중랑구</a>
+        </div>
+    </div>
+</div>
+
+<div class="box" align="center">
+    <br/>
+    <h4><strong>강서구 흡연구역 상세 지도</strong></h4>
+    <sub><strong style="color:blue">정보공개포털</strong>과 <strong style="color:blue">공공데이터포털</strong>의 데이터를 기반으로 만들어졌습니다.</sub><br/><br/>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=541b6d15b257b828a3da0c50a02d541e"></script>
+
+<div id="map" style="width:100%;height:600px;">
+</div>
+<br/><br/>
+
+<script>
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+
+    mapOption = {
+        center: new kakao.maps.LatLng(37.5557249, 126.8502565), // 지도의 중심좌표
+        level: 6 // 지도의 확대 레벨
+    };
+
+var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+
+var positions = [
+
+    {
+        title: 'LG 사이언스파크 마곡중앙10로 10 건물 옥상', // 1
+        content: '<div style="padding:15px;width:350px;text-align: center;">LG 사이언스파크 마곡중앙10로 10 건물 옥상<br>완전폐쇄형</div>',
+        latlng: new kakao.maps.LatLng(37.56223714882841, 126.83006616426248), // 1 좌표
+        category : '완전폐쇄형'
+    },
+    {
+        title: 'LG 사이언스파크 마곡중앙10로 70 E14동 1층 옆', // 2
+        content: '<div style="padding:15px;width:350px;text-align: center;">LG 사이언스파크 마곡중앙10로 70 E14동 1층 옆<br>완전폐쇄형</div>',
+        latlng: new kakao.maps.LatLng(37.56307604474756, 126.8355225944892), // 2 좌표
+        category : '완전폐쇄형'
+    },
+    {
+        title: 'LG 사이언스파크 마곡중앙10로 10 W5동 1층 옆', // 3
+        content: '<div style="padding:15px;width:350px;text-align: center;">LG 사이언스파크 마곡중앙10로 10 W5동 1층 옆<br>완전폐쇄형</div>',
+        latlng: new kakao.maps.LatLng(37.562350460568815, 126.82898217325004), // 3 좌표
+        category : '완전폐쇄형'
+    },
+    {
+        title: 'LG 사이언스파크마곡중앙10로 10 W6동 1층 옆', // 4
+        content: '<div style="padding:15px;width:350px;text-align: center;">LG 사이언스파크마곡중앙10로 10 W6동 1층 옆<br>완전폐쇄형</div>',
+        latlng: new kakao.maps.LatLng(37.56371127050343, 126.82919411545173), // 4 좌표
+        category : '완전폐쇄형'
+    },
+    {
+        title: '공항대로 150 마곡홈앤쇼핑 옥상', // 5
+        content: '<div style="padding:15px;width:350px;text-align: center;">공항대로 150 마곡홈앤쇼핑 옥상<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.55953027722628, 126.82433411643775), // 5 좌표
+        category : '부분개방형'
+    },
+    {
+        title: '공항대로 213 보타닉 파크타워 옥상', // 6
+        content: '<div style="padding:15px;width:350px;text-align: center;">공항대로 213 보타닉 파크타워 옥상<br>완전개방형</div>',
+        latlng: new kakao.maps.LatLng(37.55976578962613, 126.83137334445601), // 6 좌표
+        category : '완전개방형'
+    },
+    {
+        title: '마곡중앙8로 3길 79 옥상', // 7
+        content: '<div style="padding:15px;width:350px;text-align: center;">마곡중앙8로 3길 79 옥상<br>완전개방형</div>',
+        latlng: new kakao.maps.LatLng(37.5679904627137, 126.83841516930629), // 7 좌표
+        category : '완전개방형'
+    },
+    {
+        title: '마곡중앙8로 1길 62 옥상', // 8
+        content: '<div style="padding:15px;width:350px;text-align: center;">마곡중앙8로 1길 62 옥상<br>완전개방형</div>',
+        latlng: new kakao.maps.LatLng(37.56647028333546, 126.83695830314174), // 8 좌표
+        category : '완전개방형'
+    },
+    {
+        title: '마곡중앙 8로 3길 57 옥상', // 9
+        content: '<div style="padding:15px;width:350px;text-align: center;">마곡중앙 8로 3길 57 옥상<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.56632660081971, 126.8373038448802), // 9 좌표
+        category : '부분개방형'
+    },
+    {
+        title: '마곡중앙8로 3길 55 옥상', // 10
+        content: '<div style="padding:15px;width:350px;text-align: center;">마곡중앙8로 3길 55 옥상<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.566119115059664, 126.83711753365834), // 10 좌표
+        category : '부분개방형'
+    },
+    {
+        title: '마곡중앙8로 3길 53 옥상', // 11
+        content: '<div style="padding:15px;width:350px;text-align: center;">마곡중앙8로 3길 53 옥상<br>완전개방형</div>',
+        latlng: new kakao.maps.LatLng(37.5658533184028, 126.83711528267222), // 11 좌표
+        category : '완전개방형'
+    },
+    {
+        title: '강서로 443 마곡대명투웨니퍼스트 옥상', // 12
+        content: '<div style="padding:15px;width:350px;text-align: center;">강서로 443 마곡대명투웨니퍼스트 옥상<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.565194889948145, 126.83989548139142), // 12 좌표
+        category : '부분개방형'
+    },
+    {
+        title: '강서로 449 벨리오 오피스텔 옥상', // 13
+        content: '<div style="padding:15px;width:350px;text-align: center;">강서로 449 벨리오 오피스텔 옥상<br>완전개방형</div>',
+        latlng: new kakao.maps.LatLng(37.564863610080735, 126.83977451383484), // 13 좌표
+        category : '완전개방형'
+    },
+    {
+        title: '마곡중앙8로 7길 45 1층 후문 옆', // 14
+        content: '<div style="padding:15px;width:350px;text-align: center;">마곡중앙8로 7길 45 1층 후문 옆<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.564934449417294, 126.83886320197955), // 14 좌표
+        category : '부분개방형'
+    },
+    {
+        title: '마곡중앙8로 3길 35 옥상', // 15
+        content: '<div style="padding:15px;width:350px;text-align: center;">마곡중앙8로 3길 35 옥상<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.56419954381078, 126.83679064265843), // 15 좌표
+        category : '부분개방형'
+    },
+    {
+        title: '마곡서로 170 마곡시티 오피스텔 1층  후문', // 16
+        content: '<div style="padding:15px;width:350px;text-align: center;">마곡서로 170 마곡시티 오피스텔 1층  후문<br>완전개방형</div>',
+        latlng: new kakao.maps.LatLng(37.569366367904756, 126.82549955840096), // 16 좌표
+        category : '완전개방형'
+    },
+    {
+        title: '마곡중앙5로 1길 25 마곡헤리움 오피스텔 1층 후문', // 17
+        content: '<div style="padding:15px;width:350px;text-align: center;">마곡중앙5로 1길 25 마곡헤리움 오피스텔 1층 후문<br>완전개방형</div>',
+        latlng: new kakao.maps.LatLng(37.56929528218154, 126.82617322956952), // 17 좌표
+        category : '완전개방형'
+    },
+    {
+        title: '마곡서로 158 마곡 센트럴타워 후문', // 18
+        content: '<div style="padding:15px;width:350px;text-align: center;">마곡서로 158 마곡 센트럴타워 후문<br>완전개방형</div>',
+        latlng: new kakao.maps.LatLng(37.568176883504236, 126.8253834812466), // 18 좌표
+        category : '완전개방형'
+    },
+    {
+        title: '마곡중앙 8로 1길 16 1층', // 19
+        content: '<div style="padding:15px;width:350px;text-align: center;">마곡중앙 8로 1길 16 1층<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.56261526145416, 126.83622534879255), // 19 좌표
+        category : '부분개방형'
+    },
+    {
+        title: '마곡중앙 10로 80 1층 주차장 옆', // 20
+        content: '<div style="padding:15px;width:350px;text-align: center;">마곡중앙 10로 80 1층 주차장 옆<br>완전개방형</div>',
+        latlng: new kakao.maps.LatLng(37.56331415804268, 126.83667655941078), // 20 좌표
+        category : '완전개방형'
+    },
+    {
+        title: '마곡중앙로 201 롯데스위트빌 주차장 옆', // 21
+        content: '<div style="padding:15px;width:350px;text-align: center;">강서구 마곡중앙로 201 롯데스위트빌 주차장 옆<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.571570289274995, 126.82770742985102), // 21 좌표
+        category : '부분개방형'
+    },
+    {
+        title: '마곡중앙로 150 에스앤아이 사옥 옥상', // 22
+        content: '<div style="padding:15px;width:350px;text-align: center;">마곡중앙로 150 에스앤아이 사옥 옥상<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.567077735724084, 126.82850162433657), // 22 좌표
+        category : '부분개방형'
+    },
+    {
+        title: '양천로 583 우림블루나인비즈니스센터 1층', // 23
+        content: '<div style="padding:15px;width:350px;text-align: center;">양천로 583 우림블루나인비즈니스센터 1층<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.5573216813025, 126.86448002915128), // 23 좌표
+        category : '부분개방형'
+    },
+    {
+        title: '양천로 251 마곡실내배드민턴장 1층 추자창 뒤편', // 24
+        content: '<div style="padding:15px;width:350px;text-align: center;">양천로 251 마곡실내배드민턴장 1층 추자창 뒤편<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.57336228037584, 126.83170776339306), // 24 좌표
+        category : '부분개방형'
+    },
+    {
+        title: '하늘길 233 골프연습장', // 25
+        content: '<div style="padding:15px;width:350px;text-align: center;">하늘길 233 골프연습장<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.553582831731994, 126.81348654885589), // 25 좌표
+        category : '부분개방형'
+    },
+    {
+        title: '공항대로 411 골프연습장', // 26
+        content: '<div style="padding:15px;width:350px;text-align: center;">공항대로 411 골프연습장<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.55631967631524, 126.85346146814948), // 26 좌표
+        category : '부분개방형'
+    },
+    {
+        title: '마곡중앙6로 65 지투프라자 3층', // 27
+        content: '<div style="padding:15px;width:350px;text-align: center;">마곡중앙6로 65 지투프라자 3층<br>완전개방형</div>',
+        latlng: new kakao.maps.LatLng(37.56052277686202, 126.83466520293783), // 27 좌표
+        category : '완전개방형'
+    },
+    {
+        title: '마곡중앙6로 69 3층', // 28
+        content: '<div style="padding:15px;width:350px;text-align: center;">마곡중앙6로 69 3층<br>완전개방형</div>',
+        latlng: new kakao.maps.LatLng(37.560397183976484, 126.83505595395837), // 28 좌표
+        category : '완전개방형'
+    },
+    {
+        title: '양천로 351 1층', // 29
+        content: '<div style="padding:15px;width:350px;text-align: center;">양천로 351 1층<br>완전개방형</div>',
+        latlng: new kakao.maps.LatLng(37.568384782444916, 126.84184123000496), // 29 좌표
+        category : '완전개방형'
+    },
+
+];
+
+// 마커 이미지의 이미지 주소입니다
+var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+
+for (var i = 0; i < positions.length; i ++) {
+
+    // 마커 이미지의 이미지 크기 입니다
+    var imageSize = new kakao.maps.Size(24, 35);
+
+    // 마커 이미지를 생성합니다
+    var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+
+    // 마커를 생성합니다
+    var marker = new kakao.maps.Marker({
+        map: map, // 마커를 표시할 지도
+        position: positions[i].latlng, // 마커를 표시할 위치
+        title : positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+        image : markerImage // 마커 이미지
+    });
+
+    // 마커에 표시할 인포윈도우를 생성합니다
+    var infowindow = new kakao.maps.InfoWindow({
+        content: positions[i].content // 인포윈도우에 표시할 내용
+    });
+
+    // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
+    // 이벤트 리스너로는 클로저를 만들어 등록합니다
+    // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
+    kakao.maps.event.addListener(marker, 'click', makeOverListener(map, marker, infowindow));
+    kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
+}
+
+// 인포윈도우를 표시하는 클로저를 만드는 함수입니다
+function makeOverListener(map, marker, infowindow) {
+    return function() {
+        infowindow.open(map, marker);
+    };
+}
+
+// 인포윈도우를 닫는 클로저를 만드는 함수입니다
+function makeOutListener(infowindow) {
+    return function() {
+        infowindow.close();
+    };
+}
+</script>
+</div>
+
+
+<br/><br/>
+<div class="box2" align="center" style="width:100%; height:200px; overflow:auto">
+
+        <table class="table">
+            <thead class="thead" style="color:#4374D9">
+                <tr>
+                    <th scope="col">자치구</th>
+                    <th scope="col">흡연구역 유형</th>
+                    <th scope="col">주소</th>
+                </tr>
+            </thead>
+
+            <tbody>
+            <tr>
+                <td>강서구</td>
+                <td>완전폐쇄형</td>
+                <td>LG 사이언스파크 마곡중앙10로 10 건물 옥상</td>
+            </tr>
+            <tr>
+                <td>강서구</td>
+                <td>완전폐쇄형</td>
+                <td>LG 사이언스파크 마곡중앙10로 70 E14동 1층 옆</td>
+            </tr>
+            <tr>
+                <td>강서구</td>
+                <td>완전폐쇄형</td>
+                <td>LG 사이언스파크 마곡중앙10로 10 W5동 1층 옆</td>
+            </tr>
+            <tr>
+                <td>강서구</td>
+                <td>완전폐쇄형</td>
+                <td>LG 사이언스파크마곡중앙10로 10 W6동 1층 옆</td>
+            </tr>
+               <tr>
+                <td>강서구</td>
+                <td>부분개방형</td>
+                <td>공항대로 150 마곡홈앤쇼핑 옥상</td>
+            </tr>
+{#            5#}
+            <tr>
+                <td>강서구</td>
+                <td>완전개방형</td>
+                <td>공항대로 213 보타닉 파크타워 옥상</td>
+            </tr>
+            <tr>
+                <td>강서구</td>
+                <td>완전개방형</td>
+                <td>마곡중앙8로 3길 79 옥상</td>
+            </tr>
+            <tr>
+                <td>강서구</td>
+                <td>완전개방형</td>
+                <td>마곡중앙8로 1길 62 옥상</td>
+            </tr>
+            <tr>
+                <td>강서구</td>
+                <td>부분개방형</td>
+                <td>마곡중앙 8로 3길 57 옥상</td>
+            </tr>
+               <tr>
+                <td>강서구</td>
+                <td>부분개방형</td>
+                <td>마곡중앙8로 3길 55 옥상</td>
+            </tr>
+{#10}
+            <tr>
+                <td>강서구</td>
+                <td>완전개방형</td>
+                <td>마곡중앙8로 3길 53 옥상</td>
+            </tr>
+            <tr>
+                <td>강서구</td>
+                <td>부분개방형</td>
+                <td>강서로 443 마곡대명투웨니퍼스트 옥상</td>
+            </tr>
+            <tr>
+                <td>강서구</td>
+                <td>완전개방형</td>
+                <td>강서로 449 벨리오 오피스텔 옥상</td>
+            </tr>
+            <tr>
+                <td>강서구</td>
+                <td>부분개방형</td>
+                <td>마곡중앙8로 7길 45 1층 후문 옆</td>
+            </tr>
+               <tr>
+                <td>강서구</td>
+                <td>부분개방형</td>
+                <td>마곡중앙8로 3길 35 옥상</td>
+            </tr>
+{#            15#}
+            <tr>
+                <td>강서구</td>
+                <td>완전개방형</td>
+                <td>마곡서로 170 1층  후문</td>
+            </tr>
+            <tr>
+                <td>강서구</td>
+                <td>완전개방형</td>
+                <td>마곡중앙5로 1길 25 1층 후문</td>
+            </tr>
+            <tr>
+                <td>강서구</td>
+                <td>완전개방형</td>
+                <td>마곡서로 158 후문</td>
+            </tr>
+            <tr>
+                <td>강서구</td>
+                <td>부분개방형</td>
+                <td>마곡중앙 8로 1길 16 1층</td>
+            </tr>
+               <tr>
+                <td>강서구</td>
+                <td>완전개방형</td>
+                <td>마곡중앙 10로 80 1층 주차장 옆</td>
+            </tr>
+{#            20#}
+            <tr>
+                <td>강서구</td>
+                <td>부분개방형</td>
+                <td>강서구 마곡중앙로 201 주차장 옆</td>
+            </tr>
+            <tr>
+                <td>강서구</td>
+                <td>부분개방형</td>
+                <td>마곡중앙로 150 옥상</td>
+            </tr>
+            <tr>
+                <td>강서구</td>
+                <td>부분개방형</td>
+                <td>양천로 583 1층</td>
+            </tr>
+            <tr>
+                <td>강서구</td>
+                <td>부분개방형</td>
+                <td>양천로 251 마곡실내배드민턴장 1층 추자창 뒤편</td>
+            </tr>
+               <tr>
+                <td>강서구</td>
+                <td>부분개방형</td>
+                <td>하늘길 233 골프연습장</td>
+            </tr>
+{#            25#}
+            <tr>
+                <td>강서구</td>
+                <td>부분개방형</td>
+                <td>공항대로 411 골프연습장</td>
+            </tr>
+            <tr>
+                <td>강서구</td>
+                <td>완전개방형</td>
+                <td>마곡중앙6로 65 지투프라자 3층</td>
+            </tr>
+            <tr>
+                <td>강서구</td>
+                <td>완전개방형</td>
+                <td>마곡중앙6로 69 3층</td>
+            </tr>
+            <tr>
+                <td>강서구</td>
+                <td>완전개방형</td>
+                <td>양천로 351 1층</td>
+            </tr>
+
+            </tbody>
+        </table>
+</div>
+{% endblock %}

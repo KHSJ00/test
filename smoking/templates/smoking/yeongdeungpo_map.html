@@ -1,0 +1,804 @@
+{% extends 'smoking/location_base.html' %}
+{% block title %}- 위치/유형 페이지{% endblock %}
+
+{% block content %}
+
+<style>
+    .dropdown-menu {
+        max-height: 400px;
+        overflow: hidden;
+        overflow-y: auto;
+    }
+
+    div#map {margin:0px auto}
+
+    .box {
+        width: 100%;
+        text-align: center;
+        border: 3px solid #708090;
+        border-radius: 10px;
+        padding: 2%;
+        background: #FDFFFF;
+    }
+</style>
+
+<div class="container">
+    <div class = "dropdown">
+        <button class = "btn btn-secondary dropdown-toggle" data-toggle="dropdown">영등포구</button>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" href="{% url 'smoking:gangnam_map' %}">강남구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:gangdong_map' %}">강동구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:gangbuk_map' %}">강북구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:gangseo_map' %}">강서구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:gwanak_map' %}">관악구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:gwangjin_map' %}">광진구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:guro_map' %}">구로구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:geumcheon_map' %}">금천구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:nowon_map' %}">노원구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:dobong_map' %}">도봉구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:dongdaemun_map' %}">동대문구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:dongjak_map' %}">동작구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:mapo_map' %}">마포구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:seodaemun_map' %}">서대문구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:seocho_map' %}">서초구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:seongdong_map' %}">성동구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:seongbuk_map' %}">성북구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:songpa_map' %}">송파구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:yangcheon_map' %}">양천구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:yeongdeungpo_map' %}">영등포구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:yongsan_map' %}">용산구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:eunpyeong_map' %}">은평구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:jongro_map' %}">종로구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:jung_map' %}">중구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:jungrang_map' %}">중랑구</a>
+        </div>
+    </div>
+</div>
+
+<div class="box" align="center">
+    <br/>
+    <h4><strong>영등포구 흡연구역 상세 지도</strong></h4>
+    <sub><strong style="color:blue">정보공개포털</strong>과 <strong style="color:blue">공공데이터포털</strong>의 데이터를 기반으로 만들어졌습니다.</sub><br/><br/>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=541b6d15b257b828a3da0c50a02d541e"></script>
+
+<div id="map" style="width:100%;height:600px;">
+</div>
+<br/><br/>
+
+<script>
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+    mapOption = {
+        center: new kakao.maps.LatLng(37.5203655, 126.9085308), // 지도의 중심좌표
+        level: 6 // 지도의 확대 레벨
+    };
+
+var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+
+var positions = [
+    {
+        title: '한강프리젠', // 1
+        content: '<div style="padding:15px;width:350px;text-align: center;">한강프리젠<br>완전개방형</div>',
+        latlng: new kakao.maps.LatLng(37.539653827839615, 126.89379225281773), // 1 좌표
+        category : '완전개방형'
+    },
+    {
+        title: '프리가', // 2
+        content: '<div style="padding:15px;width:350px;text-align: center;">프리가<br>완전개방형</div>',
+        latlng: new kakao.maps.LatLng(37.51249366148377, 126.92362351190887), // 2 좌표
+        category : '완전개방형'
+    },
+    {
+        title: '에이스 테크노타워', // 3
+        content: '<div style="padding:15px;width:350px;text-align: center;">에이스 테크노타워<br>완전개방형</div>',
+        latlng: new kakao.maps.LatLng(37.51471850006081, 126.89620294669086), // 3 좌표
+        category : '완전개방형'
+    },
+    {
+        title: '고려빌딩', // 4
+        content: '<div style="padding:15px;width:350px;text-align: center;">고려빌딩<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.51935963255213, 126.93149806727081), // 4 좌표
+        category : '부분개방형'
+    },
+    {
+        title: '리버타워오피스텔', // 5
+        content: '<div style="padding:15px;width:350px;text-align: center;">리버타워오피스텔<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.51941306324728, 126.93854249755957), // 5 좌표
+        category : '부분개방형'
+    },
+    {
+        title: '금강빌딩', // 6
+        content: '<div style="padding:15px;width:350px;text-align: center;">금강빌딩<br>완전개방형</div>',
+        latlng: new kakao.maps.LatLng(37.52859260267935, 126.92062322427647), // 6 좌표
+        category : '완전개방형'
+    },
+    {
+        title: '두일빌딩', // 7
+        content: '<div style="padding:15px;width:350px;text-align: center;">두일빌딩<br>완전개방형</div>',
+        latlng: new kakao.maps.LatLng(37.51921940228908, 126.93051406364988), // 7 좌표
+        category : '완전개방형'
+    },
+    {
+        title: '영등포아트자이아파트', // 8
+        content: '<div style="padding:15px;width:350px;text-align: center;">영등포아트자이아파트<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.51118534524256, 126.90001104386398), // 8 좌표
+        category : '부분개방형'
+    },
+    {
+        title: '데시앙루브', // 9
+        content: '<div style="padding:15px;width:350px;text-align: center;">데시앙루브<br>완전개방형</div>',
+        latlng: new kakao.maps.LatLng(37.53239933733119, 126.89988090538311), // 9 좌표
+        category : '완전개방형'
+    },
+    {
+        title: '금산빌딩', // 10
+        content: '<div style="padding:15px;width:350px;text-align: center;">금산빌딩<br>완전개방형</div>',
+        latlng: new kakao.maps.LatLng(37.52828111834222, 126.91643200360738), // 10 좌표
+        category : '완전개방형'
+    },
+    {
+        title: '홍진빌딩', // 11
+        content: '<div style="padding:15px;width:350px;text-align: center;">홍진빌딩<br>완전개방형</div>',
+        latlng: new kakao.maps.LatLng(37.500417042302594, 126.89849303241587), // 11 좌표
+        category : '완전개방형'
+    },
+    {
+        title: '리앤나빌리지', // 12
+        content: '<div style="padding:15px;width:350px;text-align: center;">리앤나빌리지<br>완전개방형</div>',
+        latlng: new kakao.maps.LatLng(37.525741807964046, 126.89826358222142), // 12 좌표
+        category : '완전개방형'
+    },
+    {
+        title: '중앙빌딩', // 13
+        content: '<div style="padding:15px;width:350px;text-align: center;">중앙빌딩<br>완전개방형</div>',
+        latlng: new kakao.maps.LatLng(37.52074573552971, 126.92905621660671), // 13 좌표
+        category : '완전개방형'
+    },
+    {
+        title: 'JB빌딩', // 14
+        content: '<div style="padding:15px;width:350px;text-align: center;">JB빌딩<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.52416402920616, 126.92739285490114), // 14 좌표
+        category : '부분개방형'
+    },
+    {
+        title: '금융투자센터빌딩', // 15
+        content: '<div style="padding:15px;width:350px;text-align: center;">금융투자센터빌딩<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.51910952552052, 126.92759005406286), // 15 좌표
+        category : '부분개방형'
+    },
+    {
+        title: '아이에스비즈타워 1차', // 16
+        content: '<div style="padding:15px;width:350px;text-align: center;">아이에스비즈타워 1차<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.53622815488791, 126.89172940011733), // 16 좌표
+        category : '부분개방형'
+    },
+    {
+        title: 'LG트윈타워빌딩', // 17
+        content: '<div style="padding:15px;width:350px;text-align: center;">LG트윈타워빌딩<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.528088982554074, 126.92918784940429), // 17 좌표
+        category : '부분개방형'
+    },
+    {
+        title: '오성빌딩', // 18
+        content: '<div style="padding:15px;width:350px;text-align: center;">오성빌딩<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.530044264155585, 126.92219991835644), // 18 좌표
+        category : '부분개방형'
+    },
+    {
+        title: '토산빌딩', // 19
+        content: '<div style="padding:15px;width:350px;text-align: center;">토산빌딩<br>완전개방형</div>',
+        latlng: new kakao.maps.LatLng(37.522399134503374, 126.90938249326504), // 19 좌표
+        category : '완전개방형'
+    },
+    {
+        title: '도림시장㈜', // 20
+        content: '<div style="padding:15px;width:350px;text-align: center;">도림시장㈜<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.50964124734895, 126.89868695777184), // 20 좌표
+        category : '부분개방형'
+    },
+    {
+        title: '우림이비지센터', // 21
+        content: '<div style="padding:15px;width:350px;text-align: center;">우림이비지센터<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.52588792467569, 126.88797999061725), // 21 좌표
+        category : '부분개방형'
+    },
+    {
+        title: '제일빌딩', // 22
+        content: '<div style="padding:15px;width:350px;text-align: center;">제일빌딩<br>완전개방형</div>',
+        latlng: new kakao.maps.LatLng(37.519176845194785, 126.93092415780228), // 22 좌표
+        category : '완전개방형'
+    },
+    {
+        title: '에이스하이테크시티2', // 23
+        content: '<div style="padding:15px;width:350px;text-align: center;">에이스하이테크시티2<br>완전개방형</div>',
+        latlng: new kakao.maps.LatLng(37.5191355046887, 126.88624240585101), // 23 좌표
+        category : '완전개방형'
+    },
+    {
+        title: '에이스하이테크시티', // 24
+        content: '<div style="padding:15px;width:350px;text-align: center;">에이스하이테크시티<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.514592898489354, 126.89942962876434), // 24 좌표
+        category : '부분개방형'
+    },
+    {
+        title: 'SK V1 center', // 25
+        content: '<div style="padding:15px;width:350px;text-align: center;">SK V1 center<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.53096961613075, 126.89797081270615), // 25 좌표
+        category : '부분개방형'
+    },
+    {
+        title: '아이에스비즈타워 2차', // 26
+        content: '<div style="padding:15px;width:350px;text-align: center;">아이에스비즈타워 2차<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.53635949484179, 126.89499342775936), // 26 좌표
+        category : '부분개방형'
+    },
+    {
+        title: '은석 오피스텔', // 27
+        content: '<div style="padding:15px;width:350px;text-align: center;">은석 오피스텔<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.52568717904185, 126.90858661780435), // 27 좌표
+        category : '부분개방형'
+    },
+    {
+        title: '하나비즈타워', // 28
+        content: '<div style="padding:15px;width:350px;text-align: center;">하나비즈타워<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.52210850119716, 126.8931440469381), // 28 좌표
+        category : '부분개방형'
+    },
+    {
+        title: '유성빌딩', // 29
+        content: '<div style="padding:15px;width:350px;text-align: center;">유성빌딩<br>완전개방형</div>',
+        latlng: new kakao.maps.LatLng(37.52147171470304, 126.9301839211713), // 29 좌표
+        category : '완전개방형'
+    },
+    {
+        title: '대륭빌딩', // 30
+        content: '<div style="padding:15px;width:350px;text-align: center;">대륭빌딩<br>완전개방형</div>',
+        latlng: new kakao.maps.LatLng(37.516704317565555, 126.88783253103159), // 30 좌표
+        category : '완전개방형'
+    },
+    {
+        title: '태양빌딩', // 31
+        content: '<div style="padding:15px;width:350px;text-align: center;">태양빌딩<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.520642693901664, 126.93001784051751), // 31 좌표
+        category : '부분개방형'
+    },
+    {
+        title: '백상빌딩', // 32
+        content: '<div style="padding:15px;width:350px;text-align: center;">백상빌딩<br>완전개방형</div>',
+        latlng: new kakao.maps.LatLng(37.52183217454865, 126.92656649201254), // 32 좌표
+        category : '완전개방형'
+    },
+    {
+        title: '센터플러스', // 33
+        content: '<div style="padding:15px;width:350px;text-align: center;">센터플러스<br>완전개방형</div>',
+        latlng: new kakao.maps.LatLng(37.51223453538525, 126.89683413623452), // 33 좌표
+        category : '완전개방형'
+    },
+    {
+        title: '선유도우림아이온스밸리 A,B동', // 34
+        content: '<div style="padding:15px;width:350px;text-align: center;">선유도우림아이온스밸리 A,B동<br>완전개방형</div>',
+        latlng: new kakao.maps.LatLng(37.538207879103524, 126.89148609984196), // 34 좌표
+        category : '완전개방형'
+    },
+    {
+        title: '금강펜테리움IT타워', // 35
+        content: '<div style="padding:15px;width:350px;text-align: center;">금강펜테리움IT타워<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.5300191661052, 126.89809372734963), // 35 좌표
+        category : '부분개방형'
+    },
+    {
+        title: '타원벨라움', // 36
+        content: '<div style="padding:15px;width:350px;text-align: center;">타원벨라움<br>완전개방형</div>',
+        latlng: new kakao.maps.LatLng(37.508289861870054, 126.89623164153161), // 36 좌표
+        category : '완전개방형'
+    },
+    {
+        title: '문래임광그대가 오피스텔', // 37.0
+        content: '<div style="padding:15px;width:350px;text-align: center;">문래임광그대가 오피스텔<br>완전개방형</div>',
+        latlng: new kakao.maps.LatLng(37.52026651272305, 126.88887073217913), // 37 좌표
+        category : '완전개방형'
+    },
+    {
+        title: '양평 이노플렉스', // 37
+        content: '<div style="padding:15px;width:350px;text-align: center;">양평 이노플렉스<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.52570453382065, 126.88937457183158), // 37 좌표
+        category : '부분개방형'
+    },
+    {
+        title: '삼성타운', // 38
+        content: '<div style="padding:15px;width:350px;text-align: center;">삼성타운<br>완전개방형</div>',
+        latlng: new kakao.maps.LatLng(37.53198131427459, 126.90099870040991), // 38 좌표
+        category : '완전개방형'
+    },
+    {
+        title: '한서리버파크', // 39
+        content: '<div style="padding:15px;width:350px;text-align: center;">한서리버파크<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.53078252673495, 126.92481542281179), // 39 좌표
+        category : '부분개방형'
+    },
+    {
+        title: '트리플렉스', // 40
+        content: '<div style="padding:15px;width:350px;text-align: center;">트리플렉스<br>완전개방형</div>',
+        latlng: new kakao.maps.LatLng(37.519493132646815, 126.89800340904905), // 40 좌표
+        category : '완전개방형'
+    },
+    {
+        title: '아라비즈타워', // 41
+        content: '<div style="padding:15px;width:350px;text-align: center;">아라비즈타워<br>완전개방형</div>',
+        latlng: new kakao.maps.LatLng(37.52002324010643, 126.89128902826943), // 41 좌표
+        category : '완전개방형'
+    },
+    {
+        title: '에이스테크노타워', // 42
+        content: '<div style="padding:15px;width:350px;text-align: center;">에이스테크노타워<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.515188487654335, 126.89531153493047), // 42 좌표
+        category : '부분개방형'
+    },
+    {
+        title: '선유로코오롱디지털타워', // 43
+        content: '<div style="padding:15px;width:350px;text-align: center;">선유로코오롱디지털타워<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.539909056988755, 126.89456979580486), // 43 좌표
+        category : '부분개방형'
+    },
+    {
+        title: '양평우림보보카운티', // 44
+        content: '<div style="padding:15px;width:350px;text-align: center;">양평우림보보카운티<br>완전개방형</div>',
+        latlng: new kakao.maps.LatLng(37.525871368286005, 126.88715134832475), // 44 좌표
+        category : '완전개방형'
+    },
+    {
+        title: '홍우빌딩', // 45
+        content: '<div style="padding:15px;width:350px;text-align: center;">홍우빌딩<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.520927176113716, 126.9311516146206), // 45 좌표
+        category : '부분개방형'
+    },
+    {
+        title: '가든빌딩', // 46
+        content: '<div style="padding:15px;width:350px;text-align: center;">가든빌딩<br>완전개방형</div>',
+        latlng: new kakao.maps.LatLng(37.52894217593989, 126.92127337017037), // 46 좌표
+        category : '완전개방형'
+    },
+    {
+        title: '삼성 코코빌', // 47
+        content: '<div style="padding:15px;width:350px;text-align: center;">삼성 코코빌<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.52520224502549, 126.88240099728492), // 47 좌표
+        category : '부분개방형'
+    },
+    {
+        title: '정우빌딩', // 48
+        content: '<div style="padding:15px;width:350px;text-align: center;">정우빌딩<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.5291790625088, 126.92183596102258), // 48 좌표
+        category : '부분개방형'
+    },
+    {
+        title: '월드메르디앙비즈센터', // 49
+        content: '<div style="padding:15px;width:350px;text-align: center;">월드메르디앙비즈센터<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.52581901059637, 126.88894734258777), // 49 좌표
+        category : '부분개방형'
+    },
+    {
+        title: '맨하탄빌딩', // 50
+        content: '<div style="padding:15px;width:350px;text-align: center;">맨하탄빌딩<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.520895285060384, 126.92681344866023), // 50 좌표
+        category : '부분개방형'
+    },
+    {
+        title: 'NH투자증권본사', // 51
+        content: '<div style="padding:15px;width:350px;text-align: center;">NH투자증권본사<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.52422898087836, 126.92324389007183), // 51 좌표
+        category : '부분개방형'
+    },
+    {
+        title: '코레일유통', // 52
+        content: '<div style="padding:15px;width:350px;text-align: center;">코레일유통<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.525922884304386, 126.90196264471338), // 52 좌표
+        category : '부분개방형'
+    },
+    {
+        title: '한국우편사업진흥원', // 53
+        content: '<div style="padding:15px;width:350px;text-align: center;">한국우편사업진흥원<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.5238282160818, 126.90491513411342), // 53 좌표
+        category : '부분개방형'
+    },
+    {
+        title: '대림중앙시장', // 54
+        content: '<div style="padding:15px;width:350px;text-align: center;">대림중앙시장<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.49130431527223, 126.8996078610499), // 54 좌표
+        category : '부분개방형'
+    },
+    {
+        title: '여의도 한화증권 앞', // 55
+        content: '<div style="padding:15px;width:350px;text-align: center;">여의도 한화증권 앞<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.524152150690405, 126.92286782469661), // 55 좌표
+        category : '부분개방형'
+    },
+    {
+        title: '여의도 오투타워 앞', // 56
+        content: '<div style="padding:15px;width:350px;text-align: center;">여의도 오투타워 앞<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.52343170271984, 126.92341156617819), // 56 좌표
+        category : '부분개방형'
+    },
+];
+
+// 마커 이미지의 이미지 주소입니다
+var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+
+for (var i = 0; i < positions.length; i ++) {
+
+    // 마커 이미지의 이미지 크기 입니다
+    var imageSize = new kakao.maps.Size(24, 35);
+
+    // 마커 이미지를 생성합니다
+    var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+
+    // 마커를 생성합니다
+    var marker = new kakao.maps.Marker({
+        map: map, // 마커를 표시할 지도
+        position: positions[i].latlng, // 마커를 표시할 위치
+        title : positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+        image : markerImage // 마커 이미지
+    });
+
+    // 마커에 표시할 인포윈도우를 생성합니다
+    var infowindow = new kakao.maps.InfoWindow({
+        content: positions[i].content // 인포윈도우에 표시할 내용
+    });
+
+    // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
+    // 이벤트 리스너로는 클로저를 만들어 등록합니다
+    // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
+    kakao.maps.event.addListener(marker, 'click', makeOverListener(map, marker, infowindow));
+    kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
+}
+
+// 인포윈도우를 표시하는 클로저를 만드는 함수입니다
+function makeOverListener(map, marker, infowindow) {
+    return function() {
+        infowindow.open(map, marker);
+    };
+}
+
+// 인포윈도우를 닫는 클로저를 만드는 함수입니다
+function makeOutListener(infowindow) {
+    return function() {
+        infowindow.close();
+    };
+}
+</script>
+</div>
+<br/><br/>
+<div class="box2" align="center" style="width:100%; height:200px; overflow:auto">
+
+        <table class="table">
+            <thead class="thead" style="color:#4374D9">
+                <tr>
+                    <th scope="col">자치구</th>
+                    <th scope="col">흡연구역 유형</th>
+                    <th scope="col">주소</th>
+                </tr>
+            </thead>
+
+            <tbody>
+            <tr>
+                <td>영등포구</td>
+                <td>완전개방형</td>
+                <td>한강프리젠</td>
+            </tr>
+            <tr>
+                <td>영등포구</td>
+                <td>완전개방형</td>
+                <td>프리가</td>
+            </tr>
+            <tr>
+                <td>영등포구</td>
+                <td>완전개방형</td>
+                <td>에이스 테크노타워</td>
+            </tr>
+            <tr>
+                <td>영등포구</td>
+                <td>부분개방형</td>
+                <td>고려빌딩</td>
+            </tr>
+               <tr>
+                <td>영등포구</td>
+                <td>부분개방형</td>
+                <td>리버타워오피스텔</td>
+            </tr>
+{#            5#}
+            <tr>
+                <td>영등포구</td>
+                <td>완전개방형</td>
+                <td>금강빌딩</td>
+            </tr>
+            <tr>
+                <td>영등포구</td>
+                <td>완전개방형</td>
+                <td>두일빌딩</td>
+            </tr>
+            <tr>
+                <td>영등포구</td>
+                <td>부분개방형</td>
+                <td>영등포아트자이아파트</td>
+            </tr>
+            <tr>
+                <td>영등포구</td>
+                <td>완전개방형</td>
+                <td>데시앙루브</td>
+            </tr>
+               <tr>
+                <td>영등포구</td>
+                <td>완전개방형</td>
+                <td>금산빌딩</td>
+            </tr>
+{#10#}
+            <tr>
+                <td>영등포구</td>
+                <td>완전개방형</td>
+                <td>홍진빌딩</td>
+            </tr>
+            <tr>
+                <td>영등포구</td>
+                <td>완전개방형</td>
+                <td>리앤나빌리지</td>
+            </tr>
+            <tr>
+                <td>영등포구</td>
+                <td>완전개방형</td>
+                <td>중앙빌딩</td>
+            </tr>
+            <tr>
+                <td>영등포구</td>
+                <td>부분개방형</td>
+                <td>JB빌딩</td>
+            </tr>
+               <tr>
+                <td>영등포구</td>
+                <td>부분개방형</td>
+                <td>금융투자센터빌딩</td>
+            </tr>
+{#            15#}
+            <tr>
+                <td>영등포구</td>
+                <td>부분개방형</td>
+                <td>아이에스비즈타워 1차</td>
+            </tr>
+            <tr>
+                <td>영등포구</td>
+                <td>부분개방형</td>
+                <td>LG트윈타워빌딩</td>
+            </tr>
+            <tr>
+                <td>영등포구</td>
+                <td>부분개방형</td>
+                <td>오성빌딩</td>
+            </tr>
+            <tr>
+                <td>영등포구</td>
+                <td>완전개방형</td>
+                <td>토산빌딩</td>
+            </tr>
+               <tr>
+                <td>영등포구</td>
+                <td>부분개방형</td>
+                <td>도림시장㈜</td>
+            </tr>
+{#            20#}
+            <tr>
+                <td>영등포구</td>
+                <td>부분개방형</td>
+                <td>우림이비지센터</td>
+            </tr>
+            <tr>
+                <td>영등포구</td>
+                <td>완전개방형</td>
+                <td>제일빌딩</td>
+            </tr>
+            <tr>
+                <td>영등포구</td>
+                <td>완전개방형</td>
+                <td>에이스하이테크시티2</td>
+            </tr>
+            <tr>
+                <td>영등포구</td>
+                <td>부분개방형</td>
+                <td>에이스하이테크시티</td>
+            </tr>
+               <tr>
+                <td>영등포구</td>
+                <td>부분개방형</td>
+                <td>SK V1 center</td>
+            </tr>
+{#25#}
+            <tr>
+                <td>영등포구</td>
+                <td>부분개방형</td>
+                <td>아이에스비즈타워 2차</td>
+            </tr>
+            <tr>
+                <td>영등포구</td>
+                <td>부분개방형</td>
+                <td>은석 오피스텔</td>
+            </tr>
+            <tr>
+                <td>영등포구</td>
+                <td>부분개방형</td>
+                <td>하나비즈타워</td>
+            </tr>
+            <tr>
+                <td>영등포구</td>
+                <td>완전개방형</td>
+                <td>유성빌딩</td>
+            </tr>
+               <tr>
+                <td>영등포구</td>
+                <td>완전개방형</td>
+                <td>대륭빌딩</td>
+            </tr>
+{#30#}
+            <tr>
+                <td>영등포구</td>
+                <td>부분개방형</td>
+                <td>태양빌딩</td>
+            </tr>
+            <tr>
+                <td>영등포구</td>
+                <td>완전개방형</td>
+                <td>백상빌딩</td>
+            </tr>
+            <tr>
+                <td>영등포구</td>
+                <td>완전개방형</td>
+                <td>센터플러스</td>
+            </tr>
+            <tr>
+                <td>영등포구</td>
+                <td>완전개방형</td>
+                <td>선유도우림아이온스밸리 A,B동</td>
+            </tr>
+               <tr>
+                <td>영등포구</td>
+                <td>부분개방형</td>
+                <td>금강펜테리움IT타워</td>
+            </tr>
+{#35#}
+            <tr>
+                <td>영등포구</td>
+                <td>완전개방형</td>
+                <td>타원벨라움</td>
+            </tr>
+            <tr>
+                <td>영등포구</td>
+                <td>완전개방형</td>
+                <td>문래임광그대가 오피스텔</td>
+            </tr>
+            <tr>
+                <td>영등포구</td>
+                <td>부분개방형</td>
+                <td>양평 이노플렉스</td>
+            </tr>
+            <tr>
+                <td>영등포구</td>
+                <td>완전개방형</td>
+                <td>삼성타운</td>
+            </tr>
+               <tr>
+                <td>영등포구</td>
+                <td>부분개방형</td>
+                <td>한서리버파크</td>
+            </tr>
+{#            40#}
+            <tr>
+                <td>영등포구</td>
+                <td>완전개방형</td>
+                <td>트리플렉스</td>
+            </tr>
+            <tr>
+                <td>영등포구</td>
+                <td>완전개방형</td>
+                <td>아라비즈타워</td>
+            </tr>
+            <tr>
+                <td>영등포구</td>
+                <td>부분개방형</td>
+                <td>에이스테크노타워</td>
+            </tr>
+            <tr>
+                <td>영등포구</td>
+                <td>부분개방형</td>
+                <td>선유로코오롱디지털타워</td>
+            </tr>
+               <tr>
+                <td>영등포구</td>
+                <td>완전개방형</td>
+                <td>양평우림보보카운티</td>
+            </tr>
+{#            45#}
+            <tr>
+                <td>영등포구</td>
+                <td>부분개방형</td>
+                <td>홍우빌딩</td>
+            </tr>
+            <tr>
+                <td>영등포구</td>
+                <td>완전개방형</td>
+                <td>가든빌딩</td>
+            </tr>
+            <tr>
+                <td>영등포구</td>
+                <td>부분개방형</td>
+                <td>삼성 코코빌</td>
+            </tr>
+            <tr>
+                <td>영등포구</td>
+                <td>부분개방형</td>
+                <td>정우빌딩</td>
+            </tr>
+               <tr>
+                <td>영등포구</td>
+                <td>부분개방형</td>
+                <td>월드메르디앙비즈센터</td>
+            </tr>
+{#            50#}
+            <tr>
+                <td>영등포구</td>
+                <td>부분개방형</td>
+                <td>맨하탄빌딩</td>
+            </tr>
+            <tr>
+                <td>영등포구</td>
+                <td>부분개방형</td>
+                <td>NH투자증권본사</td>
+            </tr>
+            <tr>
+                <td>영등포구</td>
+                <td>부분개방형</td>
+                <td>코레일유통</td>
+            </tr>
+            <tr>
+                <td>영등포구</td>
+                <td>부분개방형</td>
+                <td>한국우편사업진흥원</td>
+            </tr>
+               <tr>
+                <td>영등포구</td>
+                <td>부분개방형</td>
+                <td>대림중앙시장</td>
+            </tr>
+{#            55#}
+            <tr>
+                <td>영등포구</td>
+                <td>부분개방형</td>
+                <td>여의도 한화증권 앞</td>
+            </tr>
+            <tr>
+                <td>영등포구</td>
+                <td>부분개방형</td>
+                <td>여의도 오투타워 앞</td>
+            </tr>
+            </tbody>
+        </table>
+</div>
+{% endblock %}

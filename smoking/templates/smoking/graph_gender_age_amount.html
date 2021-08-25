@@ -1,0 +1,113 @@
+{% extends 'smoking/graph_base.html' %}
+{% block content %}
+
+<style>
+
+</style>
+
+<div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+  <div class="btn-group" role="group">
+    <button id="btnGroupDrop1"  style="background-color:gray;color:white" type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      흡연율
+    </button>
+    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+      <a class="dropdown-item" onclick="location.href='/graph_age'">연령별</a>
+      <a class="dropdown-item" onclick="location.href='/graph_gender'">성별</a>
+      <a class="dropdown-item" onclick="location.href='/graph_borough'">자치구별</a>
+    </div>
+  </div>
+
+  <div class="btn-group" role="group">
+    <button id="btnGroupDrop2" style="background-color:orange;color:white" type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      흡연량
+   </button>
+    <div class="dropdown-menu" aria-labelledby="btnGroupDrop2">
+      <a class="dropdown-item" onclick="location.href='/graph_gender_age_amount'">성별&연령별</a>
+    </div>
+  </div>
+
+  <div class="btn-group" role="group">
+    <button id="btnGroupDrop3" style="background-color:gray;color:white" type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      기타
+   </button>
+    <div class="dropdown-menu" aria-labelledby="btnGroupDrop3">
+      <a class="dropdown-item" onclick="location.href='/graph_cigaretteprice'">담배값 및 담배 판매량</a>
+    </div>
+  </div>
+</div>
+
+<br/><br/><br/><br/>
+{#2019 하루 기준 평균 흡연량#}
+<div id="container" style ="width:100%; height:1300px">
+  <script src="https://code.highcharts.com/stock/highstock.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script>
+    Highcharts.chart('container', {
+        chart: {
+            type: 'bar'
+        },
+        title: {
+            text: '2019 하루 기준 평균 흡연량'
+        },
+        subtitle: {
+            text: '모든 정보는 <a href="https://kosis.kr/statHtml/statHtml.do?orgId=350&tblId=DT_35007_N045&vw_cd=MT_ZTITLE&list_id=350_35007_A006&seqNo=&lang_mode=ko&language=kor&obj_var_id=&itm_id=&conn_path=MT_ZTITLE" style="color: blue">국가 통계 포털</a>의 데이터를 기반으로 작성되었습니다.'
+        },
+        xAxis: {
+            categories: ['20-29 여', '20-29 남', '30-39 여', '30-39 남', '40-49 여', '40-49 남', '50-59 여', '50-59 남', '60-69 여', '60-69 남', '70-79 여', '70-79 남'],
+            title: {
+                text: null
+            }
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Population',
+                align: 'high'
+            },
+            labels: {
+                overflow: 'justify'
+            }
+        },
+        tooltip: {
+            valueSuffix: ''
+        },
+        plotOptions: {
+            bar: {
+                dataLabels: {
+                    enabled: true
+                }
+            }
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'top',
+            x: -40,
+            y: 80,
+            floating: true,
+            borderWidth: 1,
+            backgroundColor:
+                Highcharts.defaultOptions.legend.backgroundColor || '#FFFFFF',
+            shadow: true
+        },
+        credits: {
+            enabled: false
+        },
+        series: [{
+            name: '반갑 미만',
+            data: [36462, 74119, 29154, 106931, 36800, 105546, 22551, 68471, 10825, 41933, 3080, 22410]
+        }, {
+            name: '반갑-한갑 미만',
+            data: [21601, 194896, 21173, 375323, 32705, 454689, 24536, 305028, 12519, 146790, 2569, 38634]
+        }, {
+            name: '한갑-두갑 미만',
+            data: [2910, 57778, 2983, 151534, 6480, 310062, 7252, 294033, 4741, 140869, 1075, 27887]
+        }, {
+            name: '두갑 이상',
+            data: [74, 769, 107, 2154, 177, 6737, 181, 9870, 125, 5490, 38, 1029]
+        }]
+    });
+</script>
+</div>
+
+{% endblock %}

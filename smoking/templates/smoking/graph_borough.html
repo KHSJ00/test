@@ -1,0 +1,124 @@
+{% extends 'smoking/graph_base.html' %}
+{% block content %}
+
+<style>
+
+</style>
+
+<div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+  <div class="btn-group" role="group">
+    <button id="btnGroupDrop1"  style="background-color:yellowgreen;color:white" type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      흡연율
+    </button>
+    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+      <a class="dropdown-item" onclick="location.href='/graph_age'">연령별</a>
+      <a class="dropdown-item" onclick="location.href='/graph_gender'">성별</a>
+<!--      <a class="dropdown-item" onclick="location.href='/graph_borough'">자치구별</a>-->
+    </div>
+  </div>
+
+  <div class="btn-group" role="group">
+    <button id="btnGroupDrop2" style="background-color:gray;color:white" type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      흡연량
+   </button>
+    <div class="dropdown-menu" aria-labelledby="btnGroupDrop2">
+      <a class="dropdown-item" onclick="location.href='/graph_gender_age_amount'">성별&연령별</a>
+    </div>
+  </div>
+
+  <div class="btn-group" role="group">
+    <button id="btnGroupDrop3" style="background-color:gray;color:white" type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      기타
+   </button>
+    <div class="dropdown-menu" aria-labelledby="btnGroupDrop3">
+      <a class="dropdown-item" onclick="location.href='/graph_cigaretteprice'">담배값 및 담배 판매량</a>
+    </div>
+  </div>
+</div>
+
+<br/><br/><br/><br/>
+{#2019 자치구별 흡연율#}
+<div id="container" style ="width:100%;">
+    <script src="https://code.highcharts.com/stock/highstock.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+      // chart1
+    Highcharts.chart('container', {
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: '2019 자치구별 흡연율'
+        },
+        subtitle: {
+            text: '모든 정보는 <a href="https://www.open.go.kr/com/main/mainView.do" style="color: blue">정보 공개 포털</a>의 자료를 기반으로 작성되었습니다.'
+        },
+        xAxis: {
+            type: 'category',
+            labels: {
+                rotation: -45,
+                style: {
+                    fontSize: '13px',
+                    fontFamily: 'Verdana, sans-serif'
+                }
+            }
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: '흡연율'
+            }
+        },
+        legend: {
+            enabled: false
+        },
+        tooltip: {
+            pointFormat: '2019 자치구별 흡연율 : <b>{point.y:.1f}</b>'
+        },
+        series: [{
+            name: 'Population',
+            data: [
+                ['강남구', 15.8],
+                ['강동구', 19.3],
+                ['강북구', 21.7],
+                ['강서구', 18.1],
+                ['관악구', 18.8],
+                ['광진구', 22.1],
+                ['구로구', 16.6],
+                ['금천구', 20.0],
+                ['노원구', 20.6],
+                ['도봉구', 17.2],
+                ['동대문구', 19.1],
+                ['동작구', 16.8],
+                ['마포구', 17.6],
+                ['서대문구', 18.3],
+                ['서초구', 13.3],
+                ['성동구', 20.2],
+                ['성북구', 18.6],
+                ['송파구', 15.4],
+                ['양천구', 16.2],
+                ['영등포구', 17.1],
+                ['용산구', 12.1],
+                ['은평구', 16.0],
+                ['종로구', 19.5],
+                ['중구', 18.0],
+                ['중랑구', 20.9],
+            ],
+            dataLabels: {
+                enabled: true,
+                rotation: -90,
+                color: '#FFFFFF',
+                align: 'right',
+                format: '{point.y:.1f}', // one decimal
+                y: 10, // 10 pixels down from the top
+                style: {
+                    fontSize: '13px',
+                    fontFamily: 'Verdana, sans-serif'
+                }
+            }
+        }]
+    });
+    </script>
+  </div>
+
+{% endblock %}

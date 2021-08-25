@@ -1,0 +1,202 @@
+{% extends 'smoking/location_base.html' %}
+{% block title %}- 위치/유형 페이지{% endblock %}
+
+{% block content %}
+
+<style>
+    .dropdown-menu {
+        max-height: 400px;
+        overflow: hidden;
+        overflow-y: auto;
+    }
+
+    div#map {margin:0px auto}
+
+    .box {
+        width: 100%;
+        text-align: center;
+        border: 3px solid #708090;
+        border-radius: 10px;
+        padding: 2%;
+        background: #FDFFFF;
+    }
+</style>
+
+<div class="container">
+    <div class = "dropdown">
+        <button class = "btn btn-secondary dropdown-toggle" data-toggle="dropdown">성동구</button>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" href="{% url 'smoking:gangnam_map' %}">강남구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:gangdong_map' %}">강동구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:gangbuk_map' %}">강북구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:gangseo_map' %}">강서구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:gwanak_map' %}">관악구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:gwangjin_map' %}">광진구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:guro_map' %}">구로구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:geumcheon_map' %}">금천구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:nowon_map' %}">노원구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:dobong_map' %}">도봉구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:dongdaemun_map' %}">동대문구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:dongjak_map' %}">동작구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:mapo_map' %}">마포구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:seodaemun_map' %}">서대문구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:seocho_map' %}">서초구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:seongdong_map' %}">성동구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:seongbuk_map' %}">성북구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:songpa_map' %}">송파구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:yangcheon_map' %}">양천구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:yeongdeungpo_map' %}">영등포구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:yongsan_map' %}">용산구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:eunpyeong_map' %}">은평구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:jongro_map' %}">종로구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:jung_map' %}">중구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:jungrang_map' %}">중랑구</a>
+        </div>
+    </div>
+</div>
+
+<div class="box" align="center">
+    <br/>
+    <h4><strong>성동구 흡연구역 상세 지도</strong></h4>
+    <sub><strong style="color:blue">정보공개포털</strong>과 <strong style="color:blue">공공데이터포털</strong>의 데이터를 기반으로 만들어졌습니다.</sub><br/><br/>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=541b6d15b257b828a3da0c50a02d541e"></script>
+
+<div id="map" style="width:100%;height:600px;">
+</div>
+<br/><br/>
+
+<script>
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+    mapOption = {
+        center: new kakao.maps.LatLng(37.554582214975675, 127.05010975306172), // 지도의 중심좌표
+        level: 6 // 지도의 확대 레벨
+    };
+
+var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+
+var positions = [
+    {
+        title: '왕십리광장 북측', // 1
+        content: '<div style="padding:15px;width:350px;text-align: center;">왕십리광장 북측<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.56169359609494, 127.03722299483314), // 1 좌표
+        category : '부분개방형'
+    },
+    {
+        title: '왕십리민자역사 후면', // 2
+        content: '<div style="padding:15px;width:350px;text-align: center;">왕십리민자역사 후면<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.56123119336614, 127.03920628109783), // 2 좌표
+        category : '부분개방형'
+    },
+    {
+        title: '성수역 2번출구 후면', // 3
+        content: '<div style="padding:15px;width:350px;text-align: center;">성수역 2번출구 후면<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.544501446884574, 127.05694899111899), // 3 좌표
+        category : '부분개방형'
+    },
+];
+
+// 마커 이미지의 이미지 주소입니다
+var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+
+for (var i = 0; i < positions.length; i ++) {
+
+    // 마커 이미지의 이미지 크기 입니다
+    var imageSize = new kakao.maps.Size(24, 35);
+
+    // 마커 이미지를 생성합니다
+    var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+
+    // 마커를 생성합니다
+    var marker = new kakao.maps.Marker({
+        map: map, // 마커를 표시할 지도
+        position: positions[i].latlng, // 마커를 표시할 위치
+        title : positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+        image : markerImage // 마커 이미지
+    });
+
+    // 마커에 표시할 인포윈도우를 생성합니다
+    var infowindow = new kakao.maps.InfoWindow({
+        content: positions[i].content // 인포윈도우에 표시할 내용
+    });
+
+    // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
+    // 이벤트 리스너로는 클로저를 만들어 등록합니다
+    // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
+    kakao.maps.event.addListener(marker, 'click', makeOverListener(map, marker, infowindow));
+    kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
+}
+
+// 인포윈도우를 표시하는 클로저를 만드는 함수입니다
+function makeOverListener(map, marker, infowindow) {
+    return function() {
+        infowindow.open(map, marker);
+    };
+}
+
+// 인포윈도우를 닫는 클로저를 만드는 함수입니다
+function makeOutListener(infowindow) {
+    return function() {
+        infowindow.close();
+    };
+}
+
+</script>
+</div>
+
+<br/><br/>
+<div class="box2" align="center" style="width:100%; height:200px; overflow:auto">
+
+        <table class="table">
+            <thead class="thead" style="color:#4374D9">
+                <tr>
+                    <th scope="col">자치구</th>
+                    <th scope="col">흡연구역 유형</th>
+                    <th scope="col">주소</th>
+                </tr>
+            </thead>
+
+            <tbody>
+            <tr>
+                <td>성동구</td>
+                <td>부분개방형</td>
+                <td>왕십리광장 북측</td>
+            </tr>
+            <tr>
+                <td>성동구</td>
+                <td>부분개방형</td>
+                <td>왕십리민자역사 후면</td>
+            </tr>
+            <tr>
+                <td>성동구</td>
+                <td>부분개방형</td>
+                <td>성수역 2번출구 후면</td>
+            </tr>
+
+            </tbody>
+        </table>
+</div>
+{% endblock %}

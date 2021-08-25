@@ -1,11 +1,50 @@
-asgiref @ file:///home/conda/feedstock_root/build_artifacts/asgiref_1617745359837/work
-certifi==2020.12.5
+arrow @ file:///home/conda/feedstock_root/build_artifacts/arrow_1624555980104/work
+asgiref @ file:///home/conda/feedstock_root/build_artifacts/asgiref_1605523041333/work
+blinker==1.4
+boto3 @ file:///home/conda/feedstock_root/build_artifacts/boto3_1610071638164/work
+botocore @ file:///home/conda/feedstock_root/build_artifacts/botocore_1610064820101/work
+brotlipy==0.7.0
+cairocffi @ file:///home/conda/feedstock_root/build_artifacts/cairocffi_1608498260428/work
+CairoSVG @ file:///home/conda/feedstock_root/build_artifacts/cairosvg_1609948826329/work
+certifi==2020.6.20
+cffi @ file:///D:/bld/cffi_1606601395031/work
+chardet @ file:///D:/bld/chardet_1610093646853/work
+cryptography @ file:///D:/bld/cryptography_1610338909973/work
+cssselect2==0.2.1
+defusedxml==0.6.0
 dj-database-url==0.5.0
 Django @ file:///home/conda/feedstock_root/build_artifacts/django_1609752033316/work
+django-storages @ file:///home/conda/feedstock_root/build_artifacts/django-storages_1625563000478/work
+djangorestframework @ file:///home/conda/feedstock_root/build_artifacts/djangorestframework_1616757768152/work
 gunicorn==20.1.0
+html5lib @ file:///home/conda/feedstock_root/build_artifacts/html5lib_1592930327044/work
+idna @ file:///home/conda/feedstock_root/build_artifacts/idna_1593328102638/work
+jmespath @ file:///home/conda/feedstock_root/build_artifacts/jmespath_1589369830981/work
+mock @ file:///D:/bld/mock_1610094800408/work
+numpy @ file:///D:/bld/numpy_1626648523149/work
+oauthlib @ file:///home/conda/feedstock_root/build_artifacts/oauthlib_1622383516566/work
+olefile @ file:///home/conda/feedstock_root/build_artifacts/olefile_1602866521163/work
+pandas @ file:///D:/bld/pandas_1625236589640/work
+Pillow @ file:///D:/bld/pillow_1604748918199/work
 psycopg2-binary==2.8.6
-pytz @ file:///home/conda/feedstock_root/build_artifacts/pytz_1612179539967/work
+pycparser @ file:///home/conda/feedstock_root/build_artifacts/pycparser_1593275161868/work
+PyJWT @ file:///home/conda/feedstock_root/build_artifacts/pyjwt_1609976754451/work
+PyMySQL @ file:///home/conda/feedstock_root/build_artifacts/pymysql_1610208984992/work
+pyOpenSSL @ file:///home/conda/feedstock_root/build_artifacts/pyopenssl_1608055815057/work
+Pyphen @ file:///home/conda/feedstock_root/build_artifacts/pyphen_1615570967694/work
+PySocks @ file:///D:/bld/pysocks_1610291742246/work
+python-dateutil==2.8.1
+python3-openid @ file:///home/conda/feedstock_root/build_artifacts/python3-openid_1612988842750/work
+pytz==2020.1
+requests @ file:///home/conda/feedstock_root/build_artifacts/requests_1608156231189/work
+requests-oauthlib @ file:///home/conda/feedstock_root/build_artifacts/requests-oauthlib_1595492159598/work
+s3transfer @ file:///D:/bld/s3transfer_1602631277371/work
+six @ file:///home/conda/feedstock_root/build_artifacts/six_1590081179328/work
 sqlparse @ file:///home/conda/feedstock_root/build_artifacts/sqlparse_1602142927465/work
+tinycss2 @ file:///home/conda/feedstock_root/build_artifacts/tinycss2_1616270911900/work
 typing-extensions @ file:///home/conda/feedstock_root/build_artifacts/typing_extensions_1602702424206/work
+urllib3 @ file:///home/conda/feedstock_root/build_artifacts/urllib3_1605225765842/work
+webencodings==0.5.1
 whitenoise==5.2.0
+win-inet-pton @ file:///D:/bld/win_inet_pton_1610147566231/work
 wincertstore==0.2

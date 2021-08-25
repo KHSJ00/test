@@ -1,0 +1,570 @@
+{% extends 'smoking/location_base.html' %}
+{% block title %}- 위치/유형 페이지{% endblock %}
+
+{% block content %}
+
+<style>
+    .dropdown-menu {
+        max-height: 400px;
+        overflow: hidden;
+        overflow-y: auto;
+    }
+
+    div#map {margin:0px auto}
+
+    .box {
+        width: 100%;
+        text-align: center;
+        border: 3px solid #708090;
+        border-radius: 10px;
+        padding: 2%;
+        background: #FDFFFF;
+    }
+</style>
+
+<div class="container">
+    <div class = "dropdown">
+        <button class = "btn btn-secondary dropdown-toggle" data-toggle="dropdown">서대문구</button>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" href="{% url 'smoking:gangnam_map' %}">강남구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:gangdong_map' %}">강동구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:gangbuk_map' %}">강북구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:gangseo_map' %}">강서구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:gwanak_map' %}">관악구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:gwangjin_map' %}">광진구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:guro_map' %}">구로구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:geumcheon_map' %}">금천구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:nowon_map' %}">노원구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:dobong_map' %}">도봉구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:dongdaemun_map' %}">동대문구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:dongjak_map' %}">동작구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:mapo_map' %}">마포구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:seodaemun_map' %}">서대문구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:seocho_map' %}">서초구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:seongdong_map' %}">성동구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:seongbuk_map' %}">성북구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:songpa_map' %}">송파구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:yangcheon_map' %}">양천구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:yeongdeungpo_map' %}">영등포구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:yongsan_map' %}">용산구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:eunpyeong_map' %}">은평구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:jongro_map' %}">종로구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:jung_map' %}">중구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:jungrang_map' %}">중랑구</a>
+        </div>
+    </div>
+</div>
+
+<div class="box" align="center">
+    <h4><strong>서대문구 흡연구역 상세 지도</strong></h4>
+    <sub><strong style="color:blue">정보공개포털</strong>과 <strong style="color:blue">공공데이터포털</strong>의 데이터를 기반으로 만들어졌습니다.</sub><br/><br/>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=541b6d15b257b828a3da0c50a02d541e"></script>
+
+<div id="map" style="width:100%;height:600px;">
+</div>
+<br/><br/>
+
+<script>
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+    mapOption = {
+        center: new kakao.maps.LatLng(37.5722944, 126.937792), // 지도의 중심좌표
+        level: 6 // 지도의 확대 레벨
+    };
+
+var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+
+var positions = [
+    {
+        title: '연희로248 서대문구청', // 1
+        content: '<div style="padding:15px;width:350px;text-align: center;">연희로248 서대문구청<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.57913481569433, 126.93678115445512), // 1 좌표
+        category : '부분개방형'
+    },
+    {
+        title: '연희로248 서대문구청', // 2
+        content: '<div style="padding:15px;width:350px;text-align: center;">연희로248 서대문구청<br>완전폐쇄형</div>',
+        latlng: new kakao.maps.LatLng(37.5792970142154, 126.93681781038116), // 2 좌표
+        category : '완전폐쇄형'
+    },
+    {
+        title: '서대문 소방서', // 3
+        content: '<div style="padding:15px;width:350px;text-align: center;">서대문 소방서<br>기타</div>',
+        latlng: new kakao.maps.LatLng(37.57318334225219, 126.93602774448992), // 3 좌표
+        category : '부분개방형'
+    },
+    {
+        title: '서울특별시 상수도 사업 본부', // 4
+        content: '<div style="padding:15px;width:350px;text-align: center;">서울특별시 상수도 사업 본부<br>완전개방형</div>',
+        latlng: new kakao.maps.LatLng(37.56189974968786, 126.96671850450873), // 4 좌표
+        category : '완전개방형'
+    },
+    {
+        title: '서대문 우체국', // 5
+        content: '<div style="padding:15px;width:350px;text-align: center;">서대문 우체국<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.56076317155651, 126.93209399420202), // 5 좌표
+        category : '부분개방형'
+    },
+    {
+        title: '서대문 경찰서', // 6
+        content: '<div style="padding:15px;width:350px;text-align: center;">서대문 경찰서<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.56481899756465, 126.96678794804427), // 6 좌표
+        category : '부분개방형'
+    },
+    {
+        title: '경찰청 과학 수사 센터', // 7
+        content: '<div style="padding:15px;width:350px;text-align: center;">경찰청 과학 수사 센터<br>완전폐쇄형</div>',
+        latlng: new kakao.maps.LatLng(37.563530762140466, 126.96746763342634), // 7 좌표
+        category : '완전폐쇄형'
+    },
+    {
+        title: 'K1REIT빌딩', // 8
+        content: '<div style="padding:15px;width:350px;text-align: center;">K1REIT빌딩<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.56196216730142, 126.96448027881362), // 8 좌표
+        category : '부분개방형'
+    },
+    {
+        title: 'KT&G 서대문타워', // 9
+        content: '<div style="padding:15px;width:350px;text-align: center;">KT&G 서대문타워<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.56378035276675, 126.96592253655812), // 9 좌표
+        category : '부분개방형'
+    },
+    {
+        title: 'DNArohlab', // 10
+        content: '<div style="padding:15px;width:350px;text-align: center;">DNArohlab<br>완전폐쇄형</div>',
+        latlng: new kakao.maps.LatLng(37.56418616352758, 126.93888491049894), // 10 좌표
+        category : '완전폐쇄형'
+    },
+    {
+        title: '경기대학교 평생교육원', // 11
+        content: '<div style="padding:15px;width:350px;text-align: center;">경기대학교 평생교육원<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.56317338771137, 126.9624763285753), // 11 좌표
+        category : '부분개방형'
+    },
+    {
+        title: '통일로37길 51 서울예술실용전문학교', // 12
+        content: '<div style="padding:15px;width:350px;text-align: center;">통일로37길 51 서울예술실용전문학교<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.58573392617787, 126.94440937721943), // 12 좌표
+        category : '부분개방형'
+    },
+    {
+        title: '명지전문대학 본관', // 13
+        content: '<div style="padding:15px;width:350px;text-align: center;">명지전문대학 본관<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.58476136643615, 126.92497911209269), // 13 좌표
+        category : '부분개방형'
+    },
+    {
+        title: '서울명지대학교우편취급국', // 14
+        content: '<div style="padding:15px;width:350px;text-align: center;">서울명지대학교우편취급국<br>완전폐쇄형</div>',
+        latlng: new kakao.maps.LatLng(37.58031848932519, 126.92345239186258), // 14 좌표
+        category : '완전폐쇄형'
+    },
+    {
+        title: '한국방송예술교육진흥원', // 15
+        content: '<div style="padding:15px;width:350px;text-align: center;">한국방송예술교육진흥원<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.55721228216056, 126.9479361995048), // 15 좌표
+        category : '부분개방형'
+    },
+    {
+        title: 'KT가좌지사 1층 주차장', // 16
+        content: '<div style="padding:15px;width:350px;text-align: center;">KT가좌지사 1층 주차장<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.58374223310721, 126.91361606374532), // 16 좌표
+        category : '부분개방형'
+    },
+    {
+        title: '지오영빌딩 1층 테라스', // 17
+        content: '<div style="padding:15px;width:350px;text-align: center;">지오영빌딩 1층 테라스<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.5666362794092, 126.92603581385279), // 17 좌표
+        category : '부분개방형'
+    },
+    {
+        title: '영화의료기빌딩 옥상', // 18
+        content: '<div style="padding:15px;width:350px;text-align: center;">영화의료기빌딩 옥상<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.567332603950675, 126.91961151841004), // 18 좌표
+        category : '부분개방형'
+    },
+    {
+        title: '성공타워 옥상', // 19
+        content: '<div style="padding:15px;width:350px;text-align: center;">성공타워 옥상<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.570697482814424, 126.91278781895033), // 19 좌표
+        category : '부분개방형'
+    },
+    {
+        title: '진양빌딩 2층 외부', // 20
+        content: '<div style="padding:15px;width:350px;text-align: center;">진양빌딩 2층 외부<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.56380855041037, 126.96235150540097), // 20 좌표
+        category : '부분개방형'
+    },
+    {
+        title: 'KT아현지사 1층 주차장', // 21
+        content: '<div style="padding:15px;width:350px;text-align: center;">KT아현지사 1층 주차장<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.56031022610461, 126.9617137947327), // 21 좌표
+        category : '부분개방형'
+    },
+    {
+        title: '동아일보사 1층 주차장', // 22
+        content: '<div style="padding:15px;width:350px;text-align: center;">동아일보사 1층 주차장<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.56195280788852, 126.96333713300895), // 22 좌표
+        category : '부분개방형'
+    },
+    {
+        title: '충정빌딩 옥상', // 23
+        content: '<div style="padding:15px;width:350px;text-align: center;">충정빌딩 옥상<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.56645166774272, 126.96544592168718), // 23 좌표
+        category : '부분개방형'
+    },
+    {
+        title: '웨스트게이트타워 옥상', // 24
+        content: '<div style="padding:15px;width:350px;text-align: center;">웨스트게이트타워 옥상<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.564782838362824, 126.96636634075195), // 24 좌표
+        category : '부분개방형'
+    },
+    {
+        title: '골든브리지빌딩 지하1층 외부', // 25
+        content: '<div style="padding:15px;width:350px;text-align: center;">골든브리지빌딩 지하1층 외부<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.56199144287443, 126.96445762826477), // 25 좌표
+        category : '부분개방형'
+    },
+    {
+        title: '충정타워 지하1층', // 26
+        content: '<div style="padding:15px;width:350px;text-align: center;">충정타워 지하1층<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.55993482310947, 126.96414453032784), // 26 좌표
+        category : '부분개방형'
+    },
+    {
+        title: '종근당빌딩 1층 테라스', // 27
+        content: '<div style="padding:15px;width:350px;text-align: center;">종근당빌딩 1층 테라스<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.55969801714198, 126.96318827464724), // 27 좌표
+        category : '부분개방형'
+    },
+    {
+        title: 'SK리쳄블 옥상', // 28
+        content: '<div style="padding:15px;width:350px;text-align: center;">SK리쳄블 옥상<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.56128692736332, 126.96620945726934), // 28 좌표
+        category : '부분개방형'
+    },
+    {
+        title: '대림통상 옥상', // 29
+        content: '<div style="padding:15px;width:350px;text-align: center;">대림통상 옥상<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.56996099202097, 126.93368452810321), // 29 좌표
+        category : '부분개방형'
+    },
+    {
+        title: '백련빌딩 옥상', // 30
+        content: '<div style="padding:15px;width:350px;text-align: center;">백련빌딩 옥상<br>완전개방형</div>',
+        latlng: new kakao.maps.LatLng(37.591225747059475, 126.94035174816554), // 30 좌표
+        category : '완전개방형'
+    },
+    {
+        title: '백상빌딩 옥상', // 31
+        content: '<div style="padding:15px;width:350px;text-align: center;">백상빌딩 옥상<br>완전개방형</div>',
+        latlng: new kakao.maps.LatLng(37.55743007216589, 126.95158032632507), // 31 좌표
+        category : '완전개방형'
+    },
+    {
+        title: '유인빌딩 2층 외부', // 32
+        content: '<div style="padding:15px;width:350px;text-align: center;">유인빌딩 2층 외부<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.55708088969013, 126.94626694762182), // 32 좌표
+        category : '부분개방형'
+    },
+    {
+        title: 'YBM옥상', // 33
+        content: '<div style="padding:15px;width:350px;text-align: center;">YBM옥상<br>완전개방형</div>',
+        latlng: new kakao.maps.LatLng(37.55597339019749, 126.93852380234578), // 33 좌표
+        category : '완전개방형'
+    },
+    {
+        title: '풍산빌딩 1층 화단 옆', // 34
+        content: '<div style="padding:15px;width:350px;text-align: center;">풍산빌딩 1층 화단 옆<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.56106294214173, 126.96291596668047), // 34 좌표
+        category : '부분개방형'
+    },
+    {
+        title: '현대백화점 유플렉스 신촌점 옥상', // 35
+        content: '<div style="padding:15px;width:350px;text-align: center;">현대백화점 유플렉스 신촌점 옥상<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.55672017897488, 126.93655959797451), // 35 좌표
+        category : '부분개방형'
+    },
+    {
+        title: '현대백화점 신촌점 옥상', // 35
+        content: '<div style="padding:15px;width:350px;text-align: center;">현대백화점 신촌점 옥상<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.55610037523585, 126.93587824808965), // 35 좌표
+        category : '부분개방형'
+    },
+];
+
+// 마커 이미지의 이미지 주소입니다
+var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+
+for (var i = 0; i < positions.length; i ++) {
+
+    // 마커 이미지의 이미지 크기 입니다
+    var imageSize = new kakao.maps.Size(24, 35);
+
+    // 마커 이미지를 생성합니다
+    var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+
+    // 마커를 생성합니다
+    var marker = new kakao.maps.Marker({
+        map: map, // 마커를 표시할 지도
+        position: positions[i].latlng, // 마커를 표시할 위치
+        title : positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+        image : markerImage // 마커 이미지
+    });
+
+    // 마커에 표시할 인포윈도우를 생성합니다
+    var infowindow = new kakao.maps.InfoWindow({
+        content: positions[i].content // 인포윈도우에 표시할 내용
+    });
+
+    // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
+    // 이벤트 리스너로는 클로저를 만들어 등록합니다
+    // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
+    kakao.maps.event.addListener(marker, 'click', makeOverListener(map, marker, infowindow));
+    kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
+}
+
+// 인포윈도우를 표시하는 클로저를 만드는 함수입니다
+function makeOverListener(map, marker, infowindow) {
+    return function() {
+        infowindow.open(map, marker);
+    };
+}
+
+// 인포윈도우를 닫는 클로저를 만드는 함수입니다
+function makeOutListener(infowindow) {
+    return function() {
+        infowindow.close();
+    };
+}
+
+</script>
+</div>
+
+<br/><br/>
+<div class="box2" align="center" style="width:100%; height:200px; overflow:auto">
+
+        <table class="table">
+            <thead class="thead" style="color:#4374D9">
+                <tr>
+                    <th scope="col">자치구</th>
+                    <th scope="col">흡연구역 유형</th>
+                    <th scope="col">주소</th>
+                </tr>
+            </thead>
+
+            <tbody>
+            <tr>
+                <td>서대문구</td>
+                <td>부분개방형</td>
+                <td>연희로248 서대문구청</td>
+            </tr>
+            <tr>
+                <td>서대문구</td>
+                <td>완전폐쇄형</td>
+                <td>연희로248 서대문구청</td>
+            </tr>
+            <tr>
+                <td>서대문구</td>
+                <td>부분개방형</td>
+                <td>서대문 소방서</td>
+            </tr>
+            <tr>
+                <td>서대문구</td>
+                <td>부분개방형</td>
+                <td>서울특별시 상수도 사업 본부</td>
+            </tr>
+               <tr>
+                <td>서대문구</td>
+                <td>부분개방형</td>
+                <td>서대문 우체국</td>
+            </tr>
+{#            5#}
+            <tr>
+                <td>서대문구</td>
+                <td>부분개방형</td>
+                <td>서대문 경찰서</td>
+            </tr>
+            <tr>
+                <td>서대문구</td>
+                <td>완전폐쇄형</td>
+                <td>경찰청 과학 수사 센터</td>
+            </tr>
+            <tr>
+                <td>서대문구</td>
+                <td>부분개방형</td>
+                <td>K1REIT빌딩</td>
+            </tr>
+            <tr>
+                <td>서대문구</td>
+                <td>부분개방형</td>
+                <td>KT&G 서대문타워</td>
+            </tr>
+               <tr>
+                <td>서대문구</td>
+                <td>완전폐쇄형</td>
+                <td>DNArohlab</td>
+            </tr>
+{#            10#}
+            <tr>
+                <td>서대문구</td>
+                <td>부분개방형</td>
+                <td>경기대학교 평생교육원</td>
+            </tr>
+            <tr>
+                <td>서대문구</td>
+                <td>완전폐쇄형</td>
+                <td>통일로37길 51 서울예술실용전문학교</td>
+            </tr>
+            <tr>
+                <td>서대문구</td>
+                <td>부분개방형</td>
+                <td>명지전문대학 본관</td>
+            </tr>
+            <tr>
+                <td>서대문구</td>
+                <td>부분개방형</td>
+                <td>서울명지대학교우편취급국</td>
+            </tr>
+               <tr>
+                <td>서대문구</td>
+                <td>부분개방형</td>
+                <td>한국방송예술교육진흥원</td>
+            </tr>
+{#            15#}
+            <tr>
+                <td>서대문구</td>
+                <td>부분개방형</td>
+                <td>KT가좌지사 1층 주차장</td>
+            </tr>
+            <tr>
+                <td>서대문구</td>
+                <td>부분개방형</td>
+                <td>지오영빌딩 1층 테라스</td>
+            </tr>
+            <tr>
+                <td>서대문구</td>
+                <td>부분개방형</td>
+                <td>영화의료기빌딩 옥상</td>
+            </tr>
+            <tr>
+                <td>서대문구</td>
+                <td>부분개방형</td>
+                <td>성공타워 옥상</td>
+            </tr>
+               <tr>
+                <td>서대문구</td>
+                <td>부분개방형</td>
+                <td>진양빌딩 2층 외부</td>
+            </tr>
+{#            20#}
+            <tr>
+                <td>서대문구</td>
+                <td>부분개방형</td>
+                <td>KT아현지사 1층 주차장</td>
+            </tr>
+            <tr>
+                <td>서대문구</td>
+                <td>부분개방형</td>
+                <td>동아일보사 1층 주차장</td>
+            </tr>
+            <tr>
+                <td>서대문구</td>
+                <td>부분개방형</td>
+                <td>충정빌딩 옥상</td>
+            </tr>
+            <tr>
+                <td>서대문구</td>
+                <td>부분개방형</td>
+                <td>웨스트게이트타워 옥상</td>
+            </tr>
+               <tr>
+                <td>서대문구</td>
+                <td>부분개방형</td>
+                <td>골든브리지빌딩 지하1층 외부</td>
+            </tr>
+{#            25#}
+            <tr>
+                <td>서대문구</td>
+                <td>부분개방형</td>
+                <td>충정타워 지하1층</td>
+            </tr>
+            <tr>
+                <td>서대문구</td>
+                <td>부분개방형</td>
+                <td>종근당빌딩 1층 테라스</td>
+            </tr>
+            <tr>
+                <td>서대문구</td>
+                <td>부분개방형</td>
+                <td>SK리쳄블 옥상</td>
+            </tr>
+            <tr>
+                <td>서대문구</td>
+                <td>부분개방형</td>
+                <td>대림통상 옥상</td>
+            </tr>
+               <tr>
+                <td>서대문구</td>
+                <td>완전개방형</td>
+                <td>백련빌딩 옥상</td>
+            </tr>
+{#            30#}
+            <tr>
+                <td>서대문구</td>
+                <td>완전개방형</td>
+                <td>백상빌딩 옥상</td>
+            </tr>
+            <tr>
+                <td>서대문구</td>
+                <td>부분개방형</td>
+                <td>유인빌딩 2층 외부</td>
+            </tr>
+            <tr>
+                <td>서대문구</td>
+                <td>완전개방형</td>
+                <td>YBM옥상</td>
+            </tr>
+            <tr>
+                <td>서대문구</td>
+                <td>부분개방형</td>
+                <td>풍산빌딩 1층 화단 옆</td>
+            </tr>
+               <tr>
+                <td>서대문구</td>
+                <td>부분개방형</td>
+                <td>현대백화점 유플렉스 신촌점 옥상</td>
+            </tr>
+{#            35#}
+            <tr>
+                <td>서대문구</td>
+                <td>부분개방형</td>
+                <td>현대백화점 신촌점 옥상</td>
+            </tr>
+            </tbody>
+        </table>
+</div>
+{% endblock %}

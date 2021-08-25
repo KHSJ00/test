@@ -1,0 +1,50 @@
+{% extends "post/post_base.html" %}
+
+{% block content %}
+<body>
+    <div class="container">
+        <form action="delete/" method="POST" style="float:right; margin-top:0;">
+            {% csrf_token %}
+            <a class="btn btn-outline-primary" href="{% url 'post:post_list_staff' %}" style ="float:left; margin-top:25px;margin-left:5px;">글 목록 보기</a>
+        </form>
+        <h3><a href="">{{ post.number }}</a></h3>
+        <h3><a href="">{{ post.title }}</a></h3>
+        <div class="text">{{ post.text|linebreaksbr }}</div>
+    </div>
+
+<!--    {% for comment in post.comments.all %}-->
+<!--        <div class="comment">-->
+<!--            <div class="date">{{ comment.created_at }}</div>-->
+<!--            <strong>{{ comment.author }}</strong>-->
+<!--            <p>{{ comment.comment_text|linebreaks }}</p>-->
+<!--        </div>-->
+<!--    <hr/>-->
+<!--    {% empty %}-->
+<!--        <p>아직 댓글이 없습니다.</p>-->
+<!--    {% endfor %}-->
+
+    <div class="container">
+        <div class="card my-4">
+        <h5 class="card-header">댓글 달기</h5>
+        <div class="card-body">
+            <form method="POST">
+                {% csrf_token %}
+                <textarea name="body" type="text" value="" style="width:90%;" rows=3></textarea>
+                <button type="submit" class="btn btn-outline-secondary" style="float:right; margin-top:0.8%; width:8%;">댓글<br/>달기</button>
+            </form>
+        </div>
+    </div>
+    <br/>
+    <hr/>
+    {% for comment in comments %}
+        <strong><a href="#" style="float:right; text-decoration:none;">삭제하기</a></strong>
+        <strong>{{comment.author}}</strong>
+        <br/>{{comment.body}}
+        <p style="float:right; font-size:13px;">{{comment.date}}</p>
+    <hr/>
+    {% endfor %}
+
+    {% csrf_token %}
+    </div>
+</body>
+{% endblock %}

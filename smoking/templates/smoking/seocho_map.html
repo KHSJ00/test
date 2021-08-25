@@ -1,0 +1,312 @@
+{% extends 'smoking/location_base.html' %}
+{% block title %}- 위치/유형 페이지{% endblock %}
+
+{% block content %}
+
+<style>
+    .dropdown-menu {
+        max-height: 400px;
+        overflow: hidden;
+        overflow-y: auto;
+    }
+
+    div#map {margin:0px auto}
+
+    .box {
+        width: 100%;
+        text-align: center;
+        border: 3px solid #708090;
+        border-radius: 10px;
+        padding: 2%;
+        background: #FDFFFF;
+    }
+</style>
+
+<div class="container">
+    <div class = "dropdown">
+        <button class = "btn btn-secondary dropdown-toggle" data-toggle="dropdown">서초구</button>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" href="{% url 'smoking:gangnam_map' %}">강남구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:gangdong_map' %}">강동구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:gangbuk_map' %}">강북구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:gangseo_map' %}">강서구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:gwanak_map' %}">관악구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:gwangjin_map' %}">광진구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:guro_map' %}">구로구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:geumcheon_map' %}">금천구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:nowon_map' %}">노원구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:dobong_map' %}">도봉구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:dongdaemun_map' %}">동대문구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:dongjak_map' %}">동작구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:mapo_map' %}">마포구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:seodaemun_map' %}">서대문구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:seocho_map' %}">서초구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:seongdong_map' %}">성동구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:seongbuk_map' %}">성북구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:songpa_map' %}">송파구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:yangcheon_map' %}">양천구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:yeongdeungpo_map' %}">영등포구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:yongsan_map' %}">용산구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:eunpyeong_map' %}">은평구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:jongro_map' %}">종로구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:jung_map' %}">중구</a>
+                <div class="dropdown-divider"></div> <!-- 구분선 -->
+            <a class="dropdown-item" href="{% url 'smoking:jungrang_map' %}">중랑구</a>
+        </div>
+    </div>
+</div>
+
+<div class="box" align="center">
+    <br/>
+    <h4><strong>서초구 흡연구역 상세 지도</strong></h4>
+    <sub><strong style="color:blue">정보공개포털</strong>과 <strong style="color:blue">공공데이터포털</strong>의 데이터를 기반으로 만들어졌습니다.</sub><br/><br/>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=541b6d15b257b828a3da0c50a02d541e"></script>
+
+<div id="map" style="width:100%;height:600px;">
+</div>
+
+<script>
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+    mapOption = {
+        center: new kakao.maps.LatLng(37.4796696, 127.0107376), // 지도의 중심좌표
+        level: 6 // 지도의 확대 레벨
+    };
+
+var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+
+var positions = [
+    {
+        title: '강남역 7번 출구와 8번출구 사이 보도 서초동 1319-5 앞', // 1
+        content: '<div style="padding:15px;width:350px;text-align: center;">강남역 7번 출구와 8번출구 사이 보도 서초동 1319-5 앞<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.49762604141634, 127.0274940435248), // 1 좌표
+        category : '부분개방형'
+    },
+    {
+        title: '방배역3번출구 먹자골목 입구 방배동 910-9 옆', // 2
+        content: '<div style="padding:15px;width:350px;text-align: center;">방배역3번출구 먹자골목 입구 방배동 910-9 옆<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.48209357980452, 126.99707733106769), // 2 좌표
+        category : '부분개방형'
+    },
+    {
+        title: '방배천복개도로 명동칼국수 방배동 450-14 앞', // 3
+        content: '<div style="padding:15px;width:350px;text-align: center;">방배천복개도로 명동칼국수 방배동 450-14 앞<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.47771570218413, 126.98273351757058), // 3 좌표
+        category : '부분개방형'
+    },
+    {
+        title: '서초대로 78길 24 서초동 1327-5 스타벅스 앞', // 4
+        content: '<div style="padding:15px;width:350px;text-align: center;">서초대로 78길 24 서초동 1327-5 스타벅스 앞<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.49554919694387, 127.02759788383149), // 4 좌표
+        category : '부분개방형'
+    },
+    {
+        title: '서초대로 78길 42 서초동 1330-18 현대기림오피스텔 앞', // 5
+        content: '<div style="padding:15px;width:350px;text-align: center;">서초대로 78길 42 서초동 1330-18 현대기림오피스텔 앞<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.49401504459434, 127.02839171048035), // 5 좌표
+        category : '부분개방형'
+    },
+    {
+        title: '원지동 23 서초종합체육센터 입구', // 6
+        content: '<div style="padding:15px;width:350px;text-align: center;">원지동 23 서초종합체육센터 입구<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.45893683475752, 127.04228650794771), // 6 좌표
+        category : '부분개방형'
+    },
+    {
+        title: '방배동 438-38(서울시공공자전거 수서센터 앞) ', // 7
+        content: '<div style="padding:15px;width:350px;text-align: center;">방배동 438-38(서울시공공자전거 수서센터 앞)<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.48405876142307, 126.98243243414346), // 7 좌표
+        category : '부분개방형'
+    },
+    {
+        title: '방배천복개도로 방배경찰서 방배동 455-10 앞', // 8
+        content: '<div style="padding:15px;width:350px;text-align: center;">방배천복개도로 방배경찰서 방배동 455-10 앞<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.481529260935424, 126.98298985561799), // 8 좌표
+        category : '부분개방형'
+    },
+    {
+        title: '방배천복개도로 그린골프장 방배동 452-1 앞', // 9
+        content: '<div style="padding:15px;width:350px;text-align: center;">방배천복개도로 그린골프장 방배동 452-1 앞<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.47926093284711, 126.98273033557652), // 9 좌표
+        category : '부분개방형'
+    },
+    {
+        title: '서희타워 서초동 1366-4 옆 이면도로', // 10
+        content: '<div style="padding:15px;width:350px;text-align: center;">서희타워 서초동 1366-4 옆 이면도로<br>완전개방형</div>',
+        latlng: new kakao.maps.LatLng(37.48490469997939, 127.03285440355178), // 10 좌표
+        category : '완전개방형'
+    },
+    {
+        title: '서초구청 주차장 자판기 옆', // 11
+        content: '<div style="padding:15px;width:350px;text-align: center;">서초구청 주차장 자판기 옆<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.48368387127604, 127.03271819094307), // 11 좌표
+        category : '부분개방형'
+    },
+    {
+        title: '교보생명보험㈜ 서초사옥 부지주차장 진입로 옆', // 12
+        content: '<div style="padding:15px;width:350px;text-align: center;">교보생명보험㈜서초사옥 부지주차장 진입로 옆<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.50342914277008, 127.02467445636603), // 12 좌표
+        category : '부분개방형'
+    },
+    {
+        title: '서울가정행정법원 청사 출입계단 밑', // 13
+        content: '<div style="padding:15px;width:350px;text-align: center;">서울가정행정법원 청사 출입계단 밑<br>부분개방형</div>',
+        latlng: new kakao.maps.LatLng(37.48129291637391, 127.03624466457582), // 13 좌표
+        category : '부분개방형'
+    },
+];
+
+// 마커 이미지의 이미지 주소입니다
+var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+
+for (var i = 0; i < positions.length; i ++) {
+
+    // 마커 이미지의 이미지 크기 입니다
+    var imageSize = new kakao.maps.Size(24, 35);
+
+    // 마커 이미지를 생성합니다
+    var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+
+    // 마커를 생성합니다
+    var marker = new kakao.maps.Marker({
+        map: map, // 마커를 표시할 지도
+        position: positions[i].latlng, // 마커를 표시할 위치
+        title : positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+        image : markerImage // 마커 이미지
+    });
+
+    // 마커에 표시할 인포윈도우를 생성합니다
+    var infowindow = new kakao.maps.InfoWindow({
+        content: positions[i].content // 인포윈도우에 표시할 내용
+    });
+
+    // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
+    // 이벤트 리스너로는 클로저를 만들어 등록합니다
+    // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
+    kakao.maps.event.addListener(marker, 'click', makeOverListener(map, marker, infowindow));
+    kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
+}
+
+// 인포윈도우를 표시하는 클로저를 만드는 함수입니다
+function makeOverListener(map, marker, infowindow) {
+    return function() {
+        infowindow.open(map, marker);
+    };
+}
+
+// 인포윈도우를 닫는 클로저를 만드는 함수입니다
+function makeOutListener(infowindow) {
+    return function() {
+        infowindow.close();
+    };
+}
+
+</script>
+</div>
+
+<br/><br/>
+<div class="box2" align="center" style="width:100%; height:200px; overflow:auto">
+
+        <table class="table">
+            <thead class="thead" style="color:#4374D9">
+                <tr>
+                    <th scope="col">자치구</th>
+                    <th scope="col">흡연구역 유형</th>
+                    <th scope="col">주소</th>
+                </tr>
+            </thead>
+
+            <tbody>
+            <tr>
+                <td>서초구</td>
+                <td>부분개방형</td>
+                <td>강남역 7번 출구와 8번출구 사이 보도 서초동 1319-5 앞</td>
+            </tr>
+            <tr>
+                <td>서초구</td>
+                <td>부분개방형</td>
+                <td>방배역3번출구 먹자골목 입구 방배동 910-9 옆</td>
+            </tr>
+            <tr>
+                <td>서초구</td>
+                <td>부분개방형</td>
+                <td>방배천복개도로 명동칼국수 방배동 450-14 앞</td>
+            </tr>
+            <tr>
+                <td>서초구</td>
+                <td>부분개방형</td>
+                <td>서초대로 78길 24 서초동 1327-5 스타벅스 앞</td>
+            </tr>
+               <tr>
+                <td>서초구</td>
+                <td>부분개방형</td>
+                <td>서초대로 78길 42 서초동 1330-18 현대기림오피스텔 앞</td>
+            </tr>
+{#            5#}
+            <tr>
+                <td>서초구</td>
+                <td>부분개방형</td>
+                <td>원지동 23 서초종합체육센터 입구</td>
+            </tr>
+            <tr>
+                <td>서초구</td>
+                <td>부분개방형</td>
+                <td>방배동 438-38(서울시공공자전거 수서센터 앞)</td>
+            </tr>
+            <tr>
+                <td>서초구</td>
+                <td>부분개방형</td>
+                <td>방배천복개도로 방배경찰서 방배동 455-10 앞</td>
+            </tr>
+            <tr>
+                <td>서초구</td>
+                <td>부분개방형</td>
+                <td>방배천복개도로 그린골프장 방배동 452-1 앞</td>
+            </tr>
+               <tr>
+                <td>서초구</td>
+                <td>부분개방형</td>
+                <td>서희타워 서초동 1366-4 옆 이면도로</td>
+            </tr>
+{#10#}
+            <tr>
+                <td>서초구</td>
+                <td>부분개방형</td>
+                <td>서초구청 주차장 자판기 옆</td>
+            </tr>
+            <tr>
+                <td>서초구</td>
+                <td>부분개방형</td>
+                <td>교보생명보험㈜ 서초사옥 부지주차장 진입로 옆</td>
+            </tr>
+            <tr>
+                <td>서초구</td>
+                <td>부분개방형</td>
+                <td>서울가정행정법원 청사 출입계단 밑</td>
+            </tr>
+            </tbody>
+        </table>
+</div>
+{% endblock %}

@@ -1,149 +1,245 @@
 <!DOCTYPE html>
 <html lang="ko">
 <style>
-/*가로형 메뉴바 css랑 세로형 메뉴바 css*/
-/* 모바일에서 사용될 스타일을 먼저 작성합니다. */
+/* 모바일에 적용될 스타일 */
 @media screen and (max-width: 768px) {
-    a{
-     text-align:left;
-  }
-    a h1 {
-     font-size: 160%;
-     /*margin-right: 83%;*/
-        text-align: center;
-  }
-    ul {
-    float:left;
-    /*margin-right: 82%;*/
-    padding:8px 0 0 10px;
-    white-space:nowrap;
-     width: 180px;
-     background-color: #F2F2F2;
-     border-radius: 8px;
+        img{
+            width:80%;
+            height:60%;
+        }
+{# 푸터 : 슬라이딩 효과 넣어서 넘어가는 기능, 버튼 디자인 추가 #}
+/*--------좌우슬라이딩---------*/
+        @keyframes slidy {
+        0% {
+            margin-left: 0;
+        }
+        /* 0 ~ 10  : 정지 */
+        10% {
+            margin-left: 0;
+        }
+        /* 10 ~ 25 : 변이 */
+        25% {
+            margin-left: -100%;
+        }
+        /* 25 ~ 35 : 정지 */
+        35% {
+            margin-left: -100%;
+        }
+        /* 35 ~ 50 : 변이 */
+        50% {
+            margin-left: -200%;
+        }
+        60% {
+            margin-left: -200%;
+        }
+        75% {
+            margin-left: -300%;
+        }
+        85% {
+            margin-left: -300%;
+        }
+        100% {
+            margin-left: 0;
+        }
+}
+    #main_slide {
+        height: 20%;
+        overflow: hidden;
     }
-    li a {
-    float: left;
-    position: relative;
-    display: block;
-    color: #000;
-    padding: 8px 16px;
-    text-decoration: none;
-     }
+    #main_slide > div.wrap > div#slider {
+        overflow: hidden;
+        position: relative;
+    }
+    div#slider > div > img {
+         width: calc(100% / 4);
+         height: 20%;
+    }
+    div#slider > div {
+        position: relative;
+      width: 400%;
+        height: 20%;
+        margin: 0;
+        top:0;
+        left: 0;
+        text-align: left;
+        font-size: 0;
+        -webkit-animation: 20s slidy ease-in-out infinite;
+        animation: 20s slidy ease-in-out infinite;
+    }
+
+
+    a h1 {
+     font-size: 200%;
+     text-align: center;
+    }
+
+    .navbarmain {
+       overflow-x: hidden;
+    }
+
+    .navtitle {
+        padding-left: 41px;
+    }
+
+    .navbox {
+        padding-left: 20px;
+    }
+
+    nav {
+        {#display: inline-block;#}
+        position: relative; top: 0;
+        text-align: center;
+        padding: 5px 0 0 5px;
+        margin-bottom: 50px;
+        white-space: nowrap;
+        width: 100%;
+        {#height: 140px;#}
+        {#background-color: #EBF7FF;#}
+        border-radius: 1px;
+        z-index: 99;
+    }
+
+    .nav-item .nav-link {
+        margin: 0 0 0 0;
+        display: block;
+        color: #000;
+        padding: 8px;
+    }
+
+    .container {
+        width: 100%;
+        z-index: -88;
+    }
+
 }
 
-/* 데스크탑에 적용될 스타일을 먼저 작성합니다. */
+/* 데스크탑에 적용될 스타일 */
 @media screen and (min-width: 769px) {
+{# 푸터 : 슬라이딩 효과 넣어서 넘어가는 기능, 버튼 디자인 추가 #}
+/*--------좌우슬라이딩---------*/
+@keyframes slidy {
+        0% {
+            margin-left: 0;
+        }
+        /* 0 ~ 10  : 정지 */
+        10% {
+            margin-left: 0;
+        }
+        /* 10 ~ 25 : 변이 */
+        25% {
+            margin-left: -100%;
+        }
+        /* 25 ~ 35 : 정지 */
+        35% {
+            margin-left: -100%;
+        }
+        /* 35 ~ 50 : 변이 */
+        50% {
+            margin-left: -200%;
+        }
+        60% {
+            margin-left: -200%;
+        }
+        75% {
+            margin-left: -300%;
+        }
+        85% {
+            margin-left: -300%;
+        }
+        100% {
+            margin-left: 0;
+        }
+    }
+    #main_slide {
+        height: 20%;
+        overflow: hidden;
+    }
+    #main_slide > div.wrap > div#slider {
+        overflow: hidden;
+        position: relative;
+    }
+    div#slider > div > img {
+         width: calc(100% / 4);
+         height: 20%;
+    }
+    div#slider > div {
+        position: relative;
+      width: 400%;
+        height: 20%;
+        margin: 0;
+        top:0;
+        left: 0;
+        text-align: left;
+        font-size: 0;
+        -webkit-animation: 20s slidy ease-in-out infinite;
+        animation: 20s slidy ease-in-out infinite;
+    }
 }
 
-/* 방문하지 않은 링크 */
-li a:link{
-  color: black;
-}
-li a:hover {
-     background-color:#819FF7;
-     color: white;
- }
-
-#box {
- margin: 0%;
- padding: 0%;
- background-color: #D4E0FF;
- width: 100%;
- height: 20%;
+{# 페이지 헤더 - 디자인 #}
+.page-header>p {
+    color: black;
+    float: right;
+    margin-top: 5px;
 }
 
-#box>p {
-font-size : 90%;
-text-align: center;
-padding: 1%;
+.nav {
+    margin: 0 auto;
 }
 
-.sidebar {
-  height: 100%;
-  width: 0;
-  position: fixed;
-  z-index: 9999;
-  top: 0;
-  left: 0;
-  background-color: #EBF0FF;
-  overflow-x: hidden;
-  transition: 0.5s;
-  padding-top: 5%;
+.navtitle {
+    width: 100%;
+    text-align: center;
+    margin: 0 auto;
+    }
+
+.navbarmain {
+    text-align: center;
 }
 
-.sidebar a {
-  padding: 3% 3% 3% 12%;
-  text-decoration: none;
-  font-size: 130%;
-  color: #818181;
-  display: block;
-  transition: 0.3s;
+#titlename {
+    display: inline;
 }
 
-.sidebar a:hover {
-  color: #black;
+.container {
+    min-height: 100%;
+    margin-bottom: -110px;
+    padding-bottom: 110px;
 }
 
-.sidebar .closebtn {
-  position: absolute;
-  top: 0;
-  right: 10%;
-  font-size: 300%;
-  margin-left: 80%;
+li.active a {
+    color: red;
 }
 
-.openbtn {
-  font-size: 250%;
-  cursor: pointer;
-  background-color: #FFFFFF;
-  color: black;
-  padding: 1% 2%;
-  border: none;
+.navbox {
+    width: 600px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-. navbar-brand {
-  padding: center;
+.navbar-line {
+    background-color: orange;
+    height: 55px;
+    float: left;
+    margin-right:5px;
 }
 
-#main {
-  transition: margin-left .5s;
-  padding: 0%;
+.navbar-line2 {
+    background-color: darkgray;
+    height: 55px;
+    float: left;
 }
 </style>
 
-<div id="mySidebar" class="sidebar">
-  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()"> < </a>
-  {% if user.is_authenticated %}
-  <a href="#" class="active nav-link">반갑습니다,<br> {{user.get_username}} 님!</a>
-    <div class="dropdown-divider"></div>
-  <a href="/post/post_list">문의 / 요청</a>
-    <div class="dropdown-divider"></div>
-  <a href="#">마이페이지</a>
-    <div class="dropdown-divider"></div>
-  <a href="/accounts/logout" class="nav-link">로그아웃</a>
-    <div class="dropdown-divider"></div>
-    {% else %}
-  <a href="/accounts/login">로그인</a>
-    <div class="dropdown-divider"></div>
-  <a href="/accounts/register">회원가입</a>
-    {% endif %}
+{# 페이지 헤더 - 디자인 #}
+<div class="page-header">
+    <br/>
+      {% if user.is_authenticated %}
+        <p style="margin-right:10%;"><strong>{{user.get_username}} 님 |&nbsp;<a href="/accounts/logout" style="text-decoration:none;">로그아웃</a></strong></p>
+      {% else %}
+        <p style="margin-right:10%;"><strong><a href="/accounts/login" style="text-decoration:none;">로그인</a> | <a href="/accounts/register" style="text-decoration:none;">회원가입</a></strong></p>
+      {% endif %}
 </div>
-
-<div id="main">
-  <button class="openbtn" onclick="openNav()">☰</button>
-</div>
-
-<script>
-function openNav() {
-  document.getElementById("mySidebar").style.width = "250px";
-  document.getElementById("main").style.marginLeft = "250px";
-}
-
-function closeNav() {
-  document.getElementById("mySidebar").style.width = "0";
-  document.getElementById("main").style.marginLeft= "0";
-}
-</script>
 
 <head>
     <meta charset="UTF-8">
@@ -153,32 +249,59 @@ function closeNav() {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
     <title>Smoking Navi {% block title %}{% endblock %}</title>
 </head>
-<body>
-<!--    <div class="container">-->
-<!--    <a class="navbar-brand" href="/">Smoking Navi</a>-->
-<!--    </div>-->
-    <div class="container">
-    <header class="header clearfix">
-        <a class="navbar justify-content-center navbar-dark" href="/"><h3>Smoking Navi</h3></a>
-    <nav class="navbar justify-content-center navbar-expand-lg navbar-light" >
-            <div class="nav nav-tabs" id="nav-tab" role="tablist">
-            <ul class="nav nav-tabs">
-            <li class="nav-item active"><a class="nav-link" href="/">내 주변</a>
-            <li class="nav-item"><a class="nav-link" href="/location"  onclick="location.href='/location'">위치/유형</a>
-            <li class="nav-item"><a class="nav-link" href="/cp_cd">단속/민원</a>
-            <li class="nav-item"><a class="nav-link" href="/graph">현황 그래프</a>
-            </ul>
-            </div>
-    </nav>
-    </header>
+
+<br/>
+
+<nav class="navbarmain">
+    <div class="navtitle">
+        {% load static %}
+        <a class="navbar title justify-content-center" id="titlename" href="/" style="text-decoration:none;">
+        <h1><img src="{% static "smoking/images/로고.png" %}" onclick="location.href='/'" width="500px" height="300px" style="margin-right:45px"/></h1></a>
     </div>
+
+    {# 메뉴 탭 #}
+    <div class="navbox">
+        <button type="button" class="btn btn-default navbar-btn" style="border-color:black;background-color:#F5DA81;color:black;margin:5px;border-width:5px" onclick="location.href='/'"><strong>내 주변</strong></button>
+        <button type="button" class="btn btn-default navbar-btn" style="border-color:black;background-color:#BDBDBD;color:black;margin:5px;border-width:2px" onclick="location.href='/location'">위치/유형</button>
+        <button type="button" class="btn btn-default navbar-btn" style="border-color:black;background-color:white;color:black;margin:5px;border-width:2px" onclick="location.href='/cp_cd'">단속/민원</button>
+        <button type="button" class="btn btn-default navbar-btn" style="border-color:black;background-color:white;color:black;margin:5px;border-width:2px" onclick="location.href='/graph'">현황 그래프</button>
+        {% if request.user.is_active and request.user.is_staff %}
+        <button type="button" class="btn btn-default navbar-btn" style="border-color:black;background-color:#F78181;color:black;margin:5px;border-width:2px" onclick="location.href='/post/post_list_staff'">문의/요청</button>
+        {% else %}
+        <button type="button" class="btn btn-default navbar-btn" style="border-color:black;background-color:#F78181;color:black;margin:5px;border-width:2px" onclick="location.href='/post/post_list'">문의/요청</button>
+        {% endif %}
+    </div>
+</nav>
+
+<div class="container">
+<body>
+<div class="blockcontents">
 {% block content %}
 {% endblock %}
-        <br/><br/><br/>
-<footer class="footer">
-    <div id="box">
-        <p><strong>흡연구역에서 담배를 피우는 것이<br/>비흡연자를 위한 진정한 배려입니다.</strong></p>
-    </div>
-</footer>
+</div>
+<br/><br/><br/>
 </body>
+</div>
+
+{# 푸터 : 슬라이딩 효과 넣어서 넘어가는 기능, 버튼 디자인 추가 #}
+<footer>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+{#    데스크탑 버전 푸터 코딩#}
+    <div id="main_slide">
+        <div class="wrap">
+            <div id="slider">
+                <div>
+                    <img src="{% static "smoking/images/new_banner5.png" %}" >
+                     <img src="{% static "smoking/images/new_banner8.png" %}">
+                    <img src="{% static "smoking/images/new_banner6.png" %}">
+                    <img src="{% static "smoking/images/new_banner9.png" %}">
+                </div>
+            </div>
+        </div>
+    </div>
+
+</footer>
+
+
 </html>
